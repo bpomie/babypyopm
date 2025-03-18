@@ -1,6 +1,6 @@
 # babypyopm
 
-<span style="color:red"> Important information about the infant helmet / sensor layout </span>
+#### Important information about the infant helmet / sensor layout
 
 + The sensor locations for the infant helmet are not integrated in the .fif file.
 + They are stored in a seperate .csv file `sensor_locations_mp_fixed.csv`.
