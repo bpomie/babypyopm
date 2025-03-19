@@ -11,9 +11,11 @@
 
 # Scripts
 
-`000_file_prep_infants.py`
-**input files**
-**output files**
+`000_file_prep_infants.py` - relevant only for the infant data
+
+*input files*:
+
+*output files*: 20240719_114522_sub-002_file-task12_upright_raw.fif
 
 1. adds sensor locations
 2. rotates the helmet (from supine to upright position)
