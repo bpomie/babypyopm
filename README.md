@@ -15,7 +15,7 @@
 
 *input files*:
 
-*output files*: `*_upright_raw.fif`
+*output file(s)*: *_upright_raw.fif
 
 1. adds sensor locations
 2. rotates the helmet (from supine to upright position)
