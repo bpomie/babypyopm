@@ -9,6 +9,8 @@
 
 > TO DO: store sensor locations for each participant in their data folder.
 
+
+
 # Scripts
 
 ## Prep & channel checks
@@ -41,6 +43,16 @@ addes event descriptors from an event dictionary stored in the participant's fol
 
 Therefore, the filtered (with standard parameters of your choice) data can be loaded for exploratory preprocessing / analysis steps without losing the time to run the filtering.
 
-## Exploration
+## Event related fields
 
 `100_erfs`
+
+## Decoding
+
+### 500 Hz vs 750 Hz
+
+### syllable 1 vs syllable 1 (ma vs te; bi vs go)
+
+### Standard vs Odd
+
+
