@@ -30,4 +30,9 @@
 
 addes event descriptors from an event dictionary stored in the participant's folder /source_data/sub-* /sub-* _event_dict.json
 
+`002_psd_channels.py`
+[currently a mess to be sorted]
 
+`003_filtering.py`
+1. filters the data
+2. stores the output in `processed_data` folder so that filtered (with standard parameters of your choice) can be used for later exploratory preprocessing / analysis steps without losing the time to run the filters
