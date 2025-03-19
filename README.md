@@ -12,6 +12,8 @@
 # Scripts
 
 `000_file_prep_infants.py`
+**input files**
+**output files**
 
 1. adds sensor locations
 2. rotates the helmet (from supine to upright position)
