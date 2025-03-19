@@ -28,6 +28,6 @@
 *input files(*) adults: *_raw.fif\
 *output file(s)*: 
 
-addes event descriptors from an event dictionary stored in the participant's folder /source_data/sub-*/sub-*_event_dict.json
+addes event descriptors from an event dictionary stored in the participant's folder /source_data/sub-* /sub-* _event_dict.json
 
 
