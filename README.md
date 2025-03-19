@@ -22,3 +22,7 @@
 3. concatenantes two tasks into one .fif file (background: tone oddball data and syllable oddball data were stored in seperate files)
 
 > TO DO: pull (3) into a seperate script or embed in a if_else? This step is specific to the summer infant micropilots.
+
+'001_file_prep_events.py'
+
+annotates events from an event_dictionary stored in the participant's folder /source_data/sub-*/sub-*_event_dict.json
