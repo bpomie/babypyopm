@@ -14,7 +14,7 @@
 `000_file_prep_infants.py` - relevant only for the infant data
 
 *input files*:
-*output file(s)*: *_upright_raw.fif
+/n *output file(s)*: *_upright_raw.fif
 
 1. adds sensor locations
 2. rotates the helmet (from supine to upright position)
