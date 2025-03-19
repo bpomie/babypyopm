@@ -14,7 +14,6 @@
 `000_file_prep_infants.py` - relevant only for the infant data
 
 *input files*:
-
 *output file(s)*: *_upright_raw.fif
 
 1. adds sensor locations
@@ -27,7 +26,6 @@
 
 *input files(*) infants: *_upright_raw.fif
 *input files(*) adults: *_raw.fif
-
 *output file(s)*: 
 
 addes event descriptors from an event dictionary stored in the participant's folder /source_data/sub-*/sub-*_event_dict.json
