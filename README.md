@@ -11,6 +11,8 @@
 
 # Scripts
 
+## Prep & channel checks
+
 `000_file_prep_infants.py` - relevant only for the infant data
 
 *input files*:\
@@ -36,3 +38,7 @@ addes event descriptors from an event dictionary stored in the participant's fol
 `003_filtering.py`
 1. filters the data
 2. stores the output in `processed_data` folder so that filtered (with standard parameters of your choice) can be used for later exploratory preprocessing / analysis steps without losing the time to run the filters
+
+## Exploration
+
+`100_erfs`
