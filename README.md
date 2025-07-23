@@ -11,7 +11,7 @@
 
 # Current data structure
 
-<pre> ``` my_project/ ├── index.html ├── style.css └── scripts/ └── app.js ``` </pre>
+``` my_project/ ├── index.html ├── style.css └── scripts/ └── app.js ```
 
 # Scripts
 
