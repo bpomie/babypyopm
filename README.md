@@ -2,7 +2,7 @@
 
 # Preliminaries
 
-#### Important information about the infant helmet / sensor layout
+#### Important information about the infant helmet / sensor locations
 
 + Sensor locations for the FieldLine infant rigid helmet are not integrated in the .fif file at recording.
 + They are stored in a seperate .tsv in each participants' folders, path: /data/sub-{subj}/📄 sub-{subj}_referencechannels_location.json
