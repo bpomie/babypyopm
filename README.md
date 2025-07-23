@@ -20,6 +20,7 @@
 │   │   ├── 📁 preprocessing_routine_2/
 │   │   ├── 📁 preprocessing_routine_3/
 │   │   ├── 📁 preprocessing_routine_4/
+│   │   ├── 📄 sub-001_notes_session.txt
 │   │   ├── 📄 sub-001_badchannels.tsv
 │   │   ├── 📄 sub-001_sensor_locations.tsv
 │   │   ├── 📄 sub-001_event_dict.json
