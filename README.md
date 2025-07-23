@@ -12,19 +12,19 @@
 # Current data structure
 
 ```text
-project_setup_methods_paper/
-├── data
-│   ├── sub-001
-│   │   ├── `raw_recording`
-│   │   ├── raw_rotated_sensorlocations/
-│   │   ├── preprocessing_routine_1/
-│   │   ├── preprocessing_routine_2/
-│   │   ├── preprocessing_routine_3/
-│   │   ├── preprocessing_routine_3/
-│   ├── sub-001_badchannels.tsv
-│   ├── sub-001_sensor_locations.tsv
-│   ├── sub-001_sensor_locations.tsv
-│   └── file1b.txt
+📁 project_setup_methods_paper/
+├── 📁 data
+│   ├── 📁 sub-001
+│   │   ├── 📁 raw_recording/
+│   │   ├── 📁 raw_rotated_sensorlocations/
+│   │   ├── 📁 preprocessing_routine_1/
+│   │   ├── 📁 preprocessing_routine_2/
+│   │   ├── 📁 preprocessing_routine_3/
+│   │   ├── 📁 preprocessing_routine_4/
+│   ├── 📄 sub-001_badchannels.tsv
+│   ├── 📄 sub-001_sensor_locations.tsv
+│   ├── 📄 sub-001_event_dict.json
+│   └── 📄 sub-001_referencechannels_location.json
 ├── subfolder2/
 │   ├── file2a.txt
 │   └── file2b.txt
