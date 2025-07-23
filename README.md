@@ -4,12 +4,30 @@
 
 #### Important information about the infant helmet / sensor layout
 
-+ Sensor locations for the infant helmet are not integrated in the .fif file.
++ Sensor locations for the FieldLine infant rigid helmet are not integrated in the .fif file.
 + They are stored in a seperate .csv file `sensor_locations_mp_fixed.csv`.
 + Path: `~/data/project_micropiloting_infants_opm/sensor_locations_mp_fixed.csv`
 + Script `000_file_prep_infants.py` adds sensor locations to the **_raw.fif** files (see below for more details).
 
 # Current data structure
+
+```text
+project_setup_methods_paper/
+├── data
+│   ├── sub-001
+│   │   ├── raw_recording/
+│   │   ├── raw_rotated_sensorlocations/
+│   ├── file1a.txt
+│   └── file1b.txt
+├── subfolder2/
+│   ├── file2a.txt
+│   └── file2b.txt
+├── subfolder3/
+│   ├── file3a.txt
+│   └── file3b.txt
+├── main.py
+└── README.md
+```
 
 # Scripts
 
