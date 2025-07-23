@@ -12,8 +12,11 @@
 # Current data structure
 
 ```text
-my_project/
-├── subfolder1/
+project_setup_methods_paper/
+├── data
+│   ├── sub-001
+│   │   ├── raw_recording/
+│   │   ├── raw_rotated_sensorlocations/
 │   ├── file1a.txt
 │   └── file1b.txt
 ├── subfolder2/
