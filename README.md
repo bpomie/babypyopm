@@ -28,24 +28,6 @@ project_setup_methods_paper/
 ├── main.py
 └── README.md
 ```
-    
-```
-project_setup_methods_paper
-│   tbc.md
-│   tbc.txt    
-│
-└───data
-│   │
-│   └───sub-001
-│   │   │   file111.txt
-│   │   │   file112.txt
-│   │   │   ...
-│
-│
-└───folder2
-    │   file021.txt
-    │   file022.txt
-```
 
 # Scripts
 
