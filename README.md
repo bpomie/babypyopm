@@ -11,12 +11,14 @@
 
 # Current data structure
 
+<pre> ```
 my_project/
 ├── index.html
 ├── style.css
 └── scripts/
 └── app.js
-
+``` </pre>
+    
 ```
 project_setup_methods_paper
 │   tbc.md
