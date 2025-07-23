@@ -4,10 +4,11 @@
 
 #### Important information about the infant helmet / sensor layout
 
-+ Sensor locations for the FieldLine infant rigid helmet are not integrated in the .fif file.
++ Sensor locations for the FieldLine infant rigid helmet are not integrated in the .fif file at recording.
 + They are stored in a seperate .csv file `sensor_locations_mp_fixed.csv`.
 + Path: `~/data/project_micropiloting_infants_opm/sensor_locations_mp_fixed.csv`
 + Script `000_file_prep_infants.py` adds sensor locations to the **_raw.fif** files (see below for more details).
+
 # Current data structure
 
 ```text
@@ -20,17 +21,19 @@
 │   │   ├── 📁 preprocessing_routine_2/
 │   │   ├── 📁 preprocessing_routine_3/
 │   │   ├── 📁 preprocessing_routine_4/
-│   ├── 📄 sub-001_badchannels.tsv
-│   ├── 📄 sub-001_sensor_locations.tsv
-│   ├── 📄 sub-001_event_dict.json
-│   └── 📄 sub-001_referencechannels_location.json
-├── subfolder2/
+│   │   ├── 📄 sub-001_badchannels.tsv
+│   │   ├── 📄 sub-001_sensor_locations.tsv
+│   │   ├── 📄 sub-001_event_dict.json
+│   │   └── 📄 sub-001_referencechannels_location.json
+│   ├── 📁 sub-002
+│   ├── 📁 sub-{subj}
+├── 📁 montages
 │   ├── file2a.txt
 │   └── file2b.txt
-├── subfolder3/
-│   ├── file3a.txt
-│   └── file3b.txt
-├── main.py
+├── 📁 results/
+├── 💻 file_prep_infants_add_sensor_locations.py
+├── 💻 file_prep_infants_add_sensor_locations.py
+├── 💻 file_prep_infants_add_sensor_locations.py
 └── README.md
 ```
 # Scripts
