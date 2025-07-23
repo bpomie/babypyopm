@@ -11,9 +11,20 @@
 
 # Current data structure
 
-<pre> ```
-    text my_project/ ├── subfolder1/ │ ├── file1a.txt │ └── file1b.txt ├── subfolder2/ │ ├── file2a.txt │ └── file2b.txt ├── subfolder3/ │ ├── file3a.txt │ └── file3b.txt ├── main.py └── README.md 
-    ``` </pre>
+```text
+my_project/
+├── subfolder1/
+│   ├── file1a.txt
+│   └── file1b.txt
+├── subfolder2/
+│   ├── file2a.txt
+│   └── file2b.txt
+├── subfolder3/
+│   ├── file3a.txt
+│   └── file3b.txt
+├── main.py
+└── README.md
+```
     
 ```
 project_setup_methods_paper
