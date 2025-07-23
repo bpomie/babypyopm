@@ -17,6 +17,10 @@ project_setup_methods_paper/
 │   ├── sub-001
 │   │   ├── raw_recording/
 │   │   ├── raw_rotated_sensorlocations/
+│   │   ├── preprocessing_routine_1/
+│   │   ├── preprocessing_routine_2/
+│   │   ├── preprocessing_routine_3/
+│   │   ├── preprocessing_routine_3/
 │   ├── file1a.txt
 │   └── file1b.txt
 ├── subfolder2/
