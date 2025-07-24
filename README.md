@@ -8,7 +8,7 @@
 + They are stored in a seperate .tsv in each participants' folders, path: /data/sub-{subj}/📄 sub-{subj}_referencechannels_location.json
 + Script `file_prep_infants_add_sensor_locations.py` adds sensor locations to the **_raw.fif** files (see below for more details).
 
-# Current data structure
+# Current project structure
 
 ```text
 📁 project_setup_methods_paper
