@@ -31,7 +31,7 @@
 │   └── file2b.txt
 ├── 📁 results/
 ├── 💻 participant_log.csv
-├── 💻 file_prep_infants_add_sensor_locations.py participants
+├── 💻 000_file_prep_infants_add_sensor_locations.py
 ├── 💻 file_prep_infants_add_sensor_locations.py
 ├── 💻 file_prep_infants_add_sensor_locations.py
 └── README.md
