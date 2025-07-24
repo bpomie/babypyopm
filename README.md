@@ -61,37 +61,6 @@
 2. rotates the helmet (from supine to upright position)
 3. concatenantes two tasks into one .fif file (background: tone oddball data and syllable oddball data were stored in seperate files)
 
-> TO DO: pull (3) into a seperate script or embed in a if_else? This step is specific to the summer infant micropilots.
+> [TO BE CONTINUED]
 
-`001_file_prep_events.py`
-
-*input files(*) infants: *_upright_raw.fif\
-*input files(*) adults: *_raw.fif\
-*output file(s)*: 
-
-addes event descriptors from an event dictionary stored in the participant's folder /source_data/sub-* /sub-* _event_dict.json
-
-`002_psd_channels.py`\
-[currently a mess to be sorted]
-
-`003_filtering.py`
-1. filters the data
-2. stores the output in `processed_data` folder
-
-Therefore, the filtered (with standard parameters of your choice) data can be loaded for exploratory preprocessing / analysis steps without losing the time to run the filtering.
-
-## Event related fields
-
-`100_erfs`
-
-## Decoding
-
-### 500 Hz vs 750 Hz
-
-### syllable 1 vs syllable 1 (ma vs te; bi vs go)
-
-### Standard vs Odd
-
-## Source localization
-
-## Movement tracking
+# `results`
