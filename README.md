@@ -11,14 +11,14 @@
 # Current data structure
 
 ```text
-📁 project_setup_methods_paper/
+📁 project_setup_methods_paper
 ├── 📁 data
 │   ├── 📁 sub-001
-│   │   ├── 📁 raw_recording/
-│   │   ├── 📁 raw_rotated_sensorlocations/
-│   │   ├── 📁 processed_filtered/
-│   │   ├── 📁 processed_filtered_ica/
-│   │   ├── 📁 processed_filtered_{operation}/
+│   │   ├── 📁 raw_recording
+│   │   ├── 📁 raw_rotated_sensorlocations
+│   │   ├── 📁 processed_filtered
+│   │   ├── 📁 processed_filtered_ica
+│   │   ├── 📁 processed_filtered_{operation}
 │   │   ├── 📄 sub-001_notes_session.txt
 │   │   ├── 📄 sub-001_badchannels.tsv
 │   │   ├── 📄 sub-001_sensor_locations.tsv
@@ -28,8 +28,6 @@
 │   ├── 📁 ...
 │   └── 📁 sub-{subj}
 ├── 📁 montages
-│   ├── file2a.txt
-│   └── file2b.txt
 ├── 📁 results
 │   ├── 📁 psd
 │   ├── 📁 preprocessing_routine_1
@@ -37,7 +35,8 @@
 │   │   └── 📁 rms
 │   │   └── 📄 sub-001_referencechannels_location.json
 │   ├── 📁 preprocessing_routine_2
-
+│   ├── 📁 ...
+│   └── 📁 preprocessing_routine_{routine}
 ├── ➡️ ➡️ 📄 participant_log.csv
 ├── 📄 babyopm_testing_overview.csv
 ├── 💻 000_file_prep_infants_add_sensor_locations.py
