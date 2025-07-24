@@ -66,7 +66,7 @@ fildata = mne.io.read_raw_fif(path_task_data_filtered, preload=True)
 #short = raw.copy().crop(tmin = 0, tmax = 260)
 
 # =============================================================================
-# CROP DATA FILE [if needed]
+# B [if needed]
 # =============================================================================
 
 #short = raw.copy().crop(tmin = 0, tmax = 260)
