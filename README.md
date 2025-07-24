@@ -16,10 +16,9 @@
 │   ├── 📁 sub-001
 │   │   ├── 📁 raw_recording/
 │   │   ├── 📁 raw_rotated_sensorlocations/
-│   │   ├── 📁 preprocessing_routine_1/
-│   │   ├── 📁 preprocessing_routine_2/
-│   │   ├── 📁 preprocessing_routine_3/
-│   │   ├── 📁 preprocessing_routine_4/
+│   │   ├── 📁 processed_filtered/
+│   │   ├── 📁 processed_filtered_ica/
+│   │   ├── 📁 processed_filtered_{operation}/
 │   │   ├── 📄 sub-001_notes_session.txt
 │   │   ├── 📄 sub-001_badchannels.tsv
 │   │   ├── 📄 sub-001_sensor_locations.tsv
@@ -31,7 +30,8 @@
 │   ├── file2a.txt
 │   └── file2b.txt
 ├── 📁 results/
-├── 💻 file_prep_infants_add_sensor_locations.py
+├── 💻 participant_log.csv
+├── 💻 file_prep_infants_add_sensor_locations.py participants
 ├── 💻 file_prep_infants_add_sensor_locations.py
 ├── 💻 file_prep_infants_add_sensor_locations.py
 └── README.md
