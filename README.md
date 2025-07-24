@@ -2,33 +2,52 @@
 
 # Preliminaries
 
-#### Important information about the infant helmet / sensor layout
+#### Important information about the infant helmet / sensor locations
 
-+ Sensor locations for the FieldLine infant rigid helmet are not integrated in the .fif file.
-+ They are stored in a seperate .csv file `sensor_locations_mp_fixed.csv`.
-+ Path: `~/data/project_micropiloting_infants_opm/sensor_locations_mp_fixed.csv`
-+ Script `000_file_prep_infants.py` adds sensor locations to the **_raw.fif** files (see below for more details).
++ Sensor locations for the FieldLine infant rigid helmet are not integrated in the .fif file at recording.
++ They are stored in a seperate .tsv in each participants' folders, path: /data/sub-{subj}/📄 sub-{subj}_referencechannels_location.json
++ Script `file_prep_infants_add_sensor_locations.py` adds sensor locations to the **_raw.fif** files (see below for more details).
 
 # Current data structure
 
 ```text
-project_setup_methods_paper/
-├── data
-│   ├── sub-001
-│   │   ├── raw_recording/
-│   │   ├── raw_rotated_sensorlocations/
-│   ├── file1a.txt
-│   └── file1b.txt
-├── subfolder2/
-│   ├── file2a.txt
-│   └── file2b.txt
-├── subfolder3/
-│   ├── file3a.txt
-│   └── file3b.txt
-├── main.py
-└── README.md
+📁 project_setup_methods_paper
+├── 📁 data
+│   ├── 📁 sub-001
+│   │   ├── 📁 raw_recording
+│   │   ├── 📁 raw_rotated_sensorlocations
+│   │   ├── 📁 processed_filtered
+│   │   ├── 📁 processed_filtered_ica
+│   │   ├── 📁 processed_filtered_{operation}
+│   │   ├── 📄 sub-001_notes_session.txt
+│   │   ├── 📄 sub-001_badchannels.tsv
+│   │   ├── 📄 sub-001_sensor_locations.tsv
+│   │   ├── 📄 sub-001_event_dict.json
+│   │   └── 📄 sub-001_referencechannels_location.json
+│   ├── 📁 sub-002
+│   ├── 📁 ...
+│   └── 📁 sub-{subj}
+├── 📁 montages
+├── 📁 results
+│   ├── 📁 psd
+│   ├── 📁 preprocessing_routine_1
+│   │   ├── 📁 erf
+│   │   └── 📁 rms
+│   │   └── 📄 sub-001_referencechannels_location.json
+│   ├── 📁 preprocessing_routine_2
+│   ├── 📁 ...
+│   └── 📁 preprocessing_routine_{routine}
+├── ➡️ ➡️ 📄 participant_log.csv
+├── 📄 babyopm_testing_overview.csv
+├── 💻 000_file_prep_infants_add_sensor_locations.py
+├── 💻 001_simple_explore_psd_channels_noise.py
+├── 💻 002_filtering.py
+├── 💻 003_simple_explore_task.py utils_study
+├── 📝 utils_study.py
+├── 📝 utils_infant_helmet.py
+├── 📝 utils_preprocessing_analysis.py
+└── {...}
 ```
-
 # Scripts
 
 ## Prep & channel checks
