@@ -25,21 +25,26 @@
 │   │   ├── 📄 sub-001_event_dict.json
 │   │   └── 📄 sub-001_referencechannels_location.json
 │   ├── 📁 sub-002
-│   ├── 📁 sub-{subj}
+│   ├── 📁 ...
+│   └── 📁 sub-{subj}
 ├── 📁 montages
 │   ├── file2a.txt
 │   └── file2b.txt
 ├── 📁 results
+│   ├── 📁 psd
 │   ├── 📁 preprocessing_routine_1
 │   │   ├── 📁 erf
-│   │   ├── 📁 rms
+│   │   └── 📁 rms
+│   │   └── 📄 sub-001_referencechannels_location.json
+│   ├── 📁 preprocessing_routine_2
 
 ├── ➡️ ➡️ 📄 participant_log.csv
 ├── 📄 babyopm_testing_overview.csv
 ├── 💻 000_file_prep_infants_add_sensor_locations.py
-├── 💻 file_prep_infants_add_sensor_locations.py
-├── 💻 file_prep_infants_add_sensor_locations.py
-└── README.md
+├── 💻 001_simple_explore_psd_channels_noise.py
+├── 💻 002_filtering.py
+├── 💻 003_simple_explore_task.py
+└── {...}
 ```
 # Scripts
 
