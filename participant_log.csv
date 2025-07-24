@@ -1,0 +1,10 @@
+participant_id,piloting_round,montage,task,state,event_ids,event_count_2,event_count_4,event_count_8,event_count_12,event_count_16,event_count_24,event_count_48,event_count_64
+sub-001,phase1_summer2024,v1_asymetric,oddball_tones_syllables,retrieve_notes,2_4_8_12_16_24_48_64,,,,,,,,
+sub-002,phase1_summer2024,v1_asymetric,oddball_tones_syllables,retrieve_notes,2_4_8_12_16_24_48_64,,,,,,,,
+sub-101,phase2_summer2024,v2_symetric,oddball_tones_syllables,retrieve_notes,2_4_8_12_16_24_48_64,,,,,,,,
+sub-102,phase2_summer2024,v2_symetric,oddball_tones_syllables,awake,2_4_8_12_16_24_48_64,,,,,,,,
+sub-103,phase2_summer2024,v2_symetric,oddball_tones_syllables,asleep,2_4_8_12,60,60,188,188,na,na,na,na
+sub-104,phase3_spring2025,v2_symetric,oddball_tones,retrieve_notes,2_4_8_12,60,60,188,188,na,na,na,na
+sub-105,phase3_spring2025,v2_symetric,oddball_tones,retrieve_notes,2_4_8_12,60,60,188,188,na,na,na,na
+sub-106,phase3_spring2025,v2_symetric,oddball_tones,retrieve_notes,2_4_8_12,60,60,188,188,na,na,na,na
+sub-107,phase3_spring2025,v2_symetric,oddball_tones,retrieve_notes,2_4_8_12,75,75,235,235,na,na,na,na
