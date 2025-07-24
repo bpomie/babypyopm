@@ -42,7 +42,10 @@
 ├── 💻 000_file_prep_infants_add_sensor_locations.py
 ├── 💻 001_simple_explore_psd_channels_noise.py
 ├── 💻 002_filtering.py
-├── 💻 003_simple_explore_task.py
+├── 💻 003_simple_explore_task.py utils_study
+├── 📝 utils_study.py
+├── 📝 utils_infant_helmet.py
+├── 📝 utils_preprocessing_analysis.py
 └── {...}
 ```
 # Scripts
