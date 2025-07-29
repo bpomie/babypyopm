@@ -30,7 +30,7 @@ root_data_path = '/Users/b.pomiechowska@bham.ac.uk/Documents/GitHub/babypyopm/'
 # =============================================================================
 
 # Enter which participant you would like to explore
-subj = 'sub-101'
+subj = 'sub-002'
 
 # =============================================================================
 # PATHS

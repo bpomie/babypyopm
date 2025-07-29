@@ -28,7 +28,7 @@ root_data_path = '/Users/b.pomiechowska@bham.ac.uk/Documents/GitHub/babypyopm/'
 # =============================================================================
 
 # Enter which participant you would like to explore
-subj = 'sub-101'
+subj = 'sub-002'
 
 # =============================================================================
 # PATHS
@@ -47,8 +47,6 @@ path_task_data_raw = os.path.join(path_data,subj,'raw_rotated_sensorlocations',f
 
 raw = mne.io.read_raw_fif(path_task_data_raw, preload=True)
 
-
-#
 # =============================================================================
 # PLOT 3D MONTAGE WITH SENSOR ORIENTATIONS (use task data only for the example)
 # =============================================================================

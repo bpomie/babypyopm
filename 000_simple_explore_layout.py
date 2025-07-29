@@ -25,7 +25,7 @@ import glob
 # =============================================================================
 
 # Enter which participant you would like to explore
-subj = 'sub-101'
+subj = 'sub-002'
 # =============================================================================
 # INDICATE YOUR PATH
 # =============================================================================
@@ -43,6 +43,7 @@ path_montages  = os.path.join(root_data_path,'montages')
 # Path task
 match_task = os.path.join(path_data,subj,'raw_recording',f"*_{subj}_file-oddballTones_raw.fif")
 files_task = glob.glob(match_task)
+print(files_task)
 path_task_data_raw = files_task[0]
 save_task = os.path.join(path_data,subj,'raw_rotated_sensorlocations',f"{subj}_file-oddballTones_upright_wsensorlocations_raw.fif")
 
