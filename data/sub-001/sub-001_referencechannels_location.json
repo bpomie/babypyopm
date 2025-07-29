@@ -1,0 +1,20 @@
+{
+     "s4_bz": {
+     "position": [0,0,0],
+     "unit_vector_x": [0,0,0], "unit_vector_y": [0,0,0], "unit_vector_z": [0,0,0]},
+     "s6_bz": {
+     "position": [0,0,0],
+     "unit_vector_x": [0,0,0], "unit_vector_y": [0,0,0], "unit_vector_z": [0,0,0]},
+     "s11_bz": {
+     "position": [0,0,0],
+     "unit_vector_x": [0,0,0], "unit_vector_y": [0,0,0], "unit_vector_z": [0,0,0]},
+     "s12_bz": {
+     "position": [0,0,0],
+     "unit_vector_x": [0,0,0], "unit_vector_y": [0,0,0], "unit_vector_z": [0,0,0]},
+     "s13_bz": {
+     "position": [0,0,0],
+     "unit_vector_x": [0,0,0], "unit_vector_y": [0,0,0], "unit_vector_z": [0,0,0]},
+     "s36_bz": {
+     "position": [0,0,0],
+     "unit_vector_x": [0,0,0], "unit_vector_y": [0,0,0],"unit_vector_z": [0,0,0]}
+    }

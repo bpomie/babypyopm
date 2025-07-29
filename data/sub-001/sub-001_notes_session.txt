@@ -1,0 +1,2 @@
+s24_bz - may be wrongly assigned possition in the helmet, we were dropping it anyway
+s49_bz - should be dropped as was misbehaving 
