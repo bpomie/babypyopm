@@ -1,25 +1,23 @@
 
 # babypyopm
 
-** Note 24 July **: Data are currently being uploaded on RDS: `~/oriolig-babyopm/project_setup_methods/data/`
-
 # Preliminaries
 
 #### Important information about the infant helmet / sensor locations
 
 + Sensor locations for the FieldLine infant rigid helmet are not integrated in the .fif file at recording.
 + They are stored in a seperate .tsv in each participants' folders, path: /data/sub-{subj}/📄 sub-{subj}_referencechannels_location.json
-+ Script `000_file_prep_infants_add_sensor_locations.py` adds sensor locations to the **_raw.fif** files (see below for more details).
++ Script `000_simple_explore_layout.py` adds sensor locations to the **_raw.fif** files (see below and manuscript outline for more details).
 
 # Scripts
 
 ## `simple_explore`
 
-`simple_explore` scripts are walkthroughs on single participants and use base MNE functions. Once we're happy with the contents, we can easily turn them into a pipeline. Please see outline manuscript for more details and tasks.
+`simple_explore` scripts are walkthroughs on single participants and use base MNE functions. Once we're happy with the contents, we can easily turn them into a pipeline. Please see manuscript outline for more details and tasks.
 
 ## `group`
 
-`group` scripts loop through all subjects in the data folder. They use utils_* pipelines. Please see outline manuscript for more details and tasks.
+`group` scripts loop through all subjects in the data folder. They use utils_* pipelines. Please see manuscript outline for more details and tasks.
 
 # Current project structure
 
