@@ -11,11 +11,11 @@
 
 # Scripts
 
-## `simple_explore`
+## `simple_explore` scripts
 
 `simple_explore` scripts are walkthroughs on single participants and use base MNE functions. Once we're happy with the contents, we can easily turn them into a pipeline. Please see manuscript outline for more details and tasks.
 
-## `group`
+## `group` scripts
 
 `group` scripts loop through all subjects in the data folder. They use utils_* pipelines. Please see manuscript outline for more details and tasks.
 
