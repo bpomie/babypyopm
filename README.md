@@ -45,10 +45,10 @@
 ├── 💻 000_simple_explore_layout.py
 ├── 💻 000_simple_explore_sensor_orientations.py
 ├── 💻 001_simple_explore_psd_channels_noise.py
-├── 💻 002_filtering.py
-├── 💻 003_simple_explore_task.py 
+├── 💻 002_group_filtering.py
+├── 💻 003_group_ica.py
+├── 💻 100_simple_explore_task.py 
 ├── 📝 utils_study.py
-├── 📝 utils_infant_helmet.py
 ├── 📝 utils_preprocessing_analysis.py
 └── {...}
 ```
@@ -104,18 +104,15 @@ contains rms plots
 
 # Scripts
 
-## Prep & channel checks
+## `simple_explore`
 
-`000_file_prep_infants_add_sensor_locations.py` - relevant only for the infant data
+'simple_explore' scripts are walkthroughs on single participants and use base MNE functions. Once we're happy with the contents, we can turn them into a pipeline. Please outline manuscript for more details and tasks.
 
-> [BELOW TO BE CONTINUED / EDITED]
+## `group`
 
-*input files*:\
-*output file(s)*: *_upright_raw.fif
+`group` scripts loop through all subjects in the data folder. They use utils_* pipelines.
 
-1. adds sensor locations
-2. rotates the helmet (from supine to upright position)
-3. concatenantes two tasks into one .fif file (background: tone oddball data and syllable oddball data were stored in seperate files)
+
 
 
 
