@@ -11,6 +11,16 @@
 + They are stored in a seperate .tsv in each participants' folders, path: /data/sub-{subj}/📄 sub-{subj}_referencechannels_location.json
 + Script `000_file_prep_infants_add_sensor_locations.py` adds sensor locations to the **_raw.fif** files (see below for more details).
 
+# Scripts
+
+## `simple_explore`
+
+`simple_explore` scripts are walkthroughs on single participants and use base MNE functions. Once we're happy with the contents, we can easily turn them into a pipeline. Please see outline manuscript for more details and tasks.
+
+## `group`
+
+`group` scripts loop through all subjects in the data folder. They use utils_* pipelines. Please see outline manuscript for more details and tasks.
+
 # Current project structure
 
 ```text
@@ -102,15 +112,7 @@ contains rms plots
 ##### Examples
 <img src = "results/preprocessing_routine_1/rms/sub-102_rms.png" width="2302" height="598" alt="sub-102_erf_joint_overall" />
 
-# Scripts
 
-## `simple_explore`
-
-'simple_explore' scripts are walkthroughs on single participants and use base MNE functions. Once we're happy with the contents, we can turn them into a pipeline. Please outline manuscript for more details and tasks.
-
-## `group`
-
-`group` scripts loop through all subjects in the data folder. They use utils_* pipelines.
 
 
 
