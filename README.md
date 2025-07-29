@@ -42,7 +42,8 @@
 │   └── 📁 preprocessing_routine_{routine}
 ├── ➡️ ➡️ 📄 participant_log.csv
 ├── 📄 babyopm_testing_overview.xlsx
-├── 💻 000_file_prep_infants_add_sensor_locations.py
+├── 💻 000_simple_explore_layout.py
+├── 💻 000_simple_explore_sensor_orientations.py
 ├── 💻 001_simple_explore_psd_channels_noise.py
 ├── 💻 002_filtering.py
 ├── 💻 003_simple_explore_task.py 
