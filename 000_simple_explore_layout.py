@@ -25,13 +25,14 @@ import glob
 # =============================================================================
 
 # Enter which participant you would like to explore
-subj = 'sub-002'
+subj = 'sub-101'
 # =============================================================================
 # INDICATE YOUR PATH
 # =============================================================================
 
 # Inser the path to your project folder
-root_data_path = '/Users/b.pomiechowska@bham.ac.uk/Documents/GitHub/babypyopm/'
+#root_data_path = '/Users/b.pomiechowska@bham.ac.uk/Documents/GitHub/babypyopm/'
+root_data_path = '/Users/a.pesquita@bham.ac.uk/Documents/GitHub/babypyopm/Untitled'
 
 # =============================================================================
 # PATHS
@@ -246,16 +247,47 @@ rotation_matrix = np.array([
 # Apply rotation to all MEG sensor positions
 for ch in raw_task.info['chs']:
     if ch['kind'] == mne.io.constants.FIFF.FIFFV_MEG_CH:
-        loc = ch['loc'][:3]  # Extract (x, y, z) position
-        rotated_loc = rotation_matrix @ loc
-        ch['loc'][:3] = rotated_loc
+        loc_p = ch['loc'][:3]  # Extract (x, y, z) position
+        loc_x_ijk = ch['loc'][3:6]  # Extract (x_i, x_j, x_k) 
+        loc_y_ijk = ch['loc'][6:9]  # Extract (y_i, y_j, y_k) 
+        loc_z_ijk = ch['loc'][9:12]  # Extract (z_i, z_j, z_k) 
+        print(ch['loc'])
+  
+        #TO DO: Improve code elegance here. Can be done in a loop with location labels (e.g. x_j) assigned to dictionairy to improve robustness 
+        rotated_loc_p = np.dot(loc_p, rotation_matrix)
+        ch['loc'][:3] = rotated_loc_p
+        
+        rotated_loc_x_ijk = np.dot(loc_x_ijk, rotation_matrix)
+        ch['loc'][3:6] = rotated_loc_x_ijk
+        
+        rotated_loc_y_ijk = np.dot(loc_y_ijk, rotation_matrix)
+        ch['loc'][6:9] = rotated_loc_y_ijk
+        
+        rotated_loc_z_ijk = np.dot(loc_z_ijk, rotation_matrix)
+        ch['loc'][9:12] = rotated_loc_z_ijk
              
+        
 # Apply rotation to all MEG sensor positions
 for ch in raw_emptyroom.info['chs']:
     if ch['kind'] == mne.io.constants.FIFF.FIFFV_MEG_CH:
-        loc = ch['loc'][:3]  # Extract (x, y, z) position
-        rotated_loc = rotation_matrix @ loc
-        ch['loc'][:3] = rotated_loc
+        loc_p = ch['loc'][:3]  # Extract (x, y, z) position
+        loc_x_ijk = ch['loc'][3:6]  # Extract (x_i, x_j, x_k) 
+        loc_y_ijk = ch['loc'][6:9]  # Extract (y_i, y_j, y_k) 
+        loc_z_ijk = ch['loc'][9:12]  # Extract (z_i, z_j, z_k) 
+        print(ch['loc'])
+
+         #TO DO: Improve code elegance here. Can be done in a loop with location labels (e.g. x_j) assigned to dictionairy to improve robustness
+        rotated_loc_p = np.dot(loc_p, rotation_matrix)
+        ch['loc'][:3] = rotated_loc_p
+        
+        rotated_loc_x_ijk = np.dot(loc_x_ijk, rotation_matrix)
+        ch['loc'][3:6] = rotated_loc_x_ijk
+        
+        rotated_loc_y_ijk = np.dot(loc_y_ijk, rotation_matrix)
+        ch['loc'][6:9] = rotated_loc_y_ijk
+        
+        rotated_loc_z_ijk = np.dot(loc_z_ijk, rotation_matrix)
+        ch['loc'][9:12] = rotated_loc_z_ijk
              
 # PREVIEW SENSOR PLOTS to see what we're at
 
@@ -292,13 +324,13 @@ z_orient = np.array(z_orient)
 
 # Quivers for each axis
 scale = 0.02
-# ax.quiver(positions[:,0], positions[:,1], positions[:,2],
-#           x_orient[:,0], x_orient[:,1], x_orient[:,2],
-#           length=scale, color='red', normalize=True, label='X-axis')
+ax.quiver(positions[:,0], positions[:,1], positions[:,2],
+           x_orient[:,0], x_orient[:,1], x_orient[:,2],
+           length=scale, color='red', normalize=True, label='X-axis')
 
-# ax.quiver(positions[:,0], positions[:,1], positions[:,2],
-#           y_orient[:,0], y_orient[:,1], y_orient[:,2],
-#           length=scale, color='green', normalize=True, label='Y-axis')
+ax.quiver(positions[:,0], positions[:,1], positions[:,2],
+           y_orient[:,0], y_orient[:,1], y_orient[:,2],
+           length=scale, color='green', normalize=True, label='Y-axis')
 
 ax.quiver(positions[:,0], positions[:,1], positions[:,2],
           z_orient[:,0], z_orient[:,1], z_orient[:,2],
