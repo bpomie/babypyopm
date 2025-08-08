@@ -254,7 +254,8 @@ class Utils:
     def get_participant_id(self, raw): #Basia
         filename = raw.filenames[0]
         print(filename)
-        subid = re.search(r'sub-\d+', filename).group()
+        print('Get ppt ID from filename')
+        subid = re.search(r'sub-\d+', filename.name).group()
         
         return subid
     
