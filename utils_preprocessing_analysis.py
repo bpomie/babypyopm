@@ -224,7 +224,7 @@ class OPM_Pipeline:
     
     def get_participant_id(self, raw): #Basia
         filename = raw.filenames[0]
-        subid = re.search(r'sub-\d+', filename).group()
+        subid = re.search(r'sub-\d+', filename.name).group()
         
         return subid
     
@@ -683,7 +683,8 @@ class OPM_Pipeline:
         # Save figure of ICA components
         subid = self.get_participant_id(data)
         fig = ica.plot_components(picks=range(ica.n_components_), show=False)
-        fig_path = path_results + projectname +'/' + f"{subid}_ICA_components.png"
+        fig_path = path_results +'/' +  projectname +'/' + f"{subid}_ICA_components.png"
+        os.makedirs(os.path.dirname(fig_path), exist_ok=True)
         fig.savefig(fig_path, dpi=300, bbox_inches='tight')
         plt.close(fig)
         print(f"Saved ICA components figure to: {fig_path}")
@@ -718,7 +719,7 @@ class OPM_Pipeline:
 
         fig2a.suptitle(f'ICA Sources (Components 0-{half_components-1}) - Subject {subid} (First 3 Seconds)')
         fig2a.tight_layout()
-        fig2a_path = path_results + projectname +'/' + f"{subid}_ICA_sourcesA.png"
+        fig2a_path = path_results +'/' + projectname +'/' + f"{subid}_ICA_sourcesA.png"
         fig2a.savefig(fig2a_path, dpi=300, bbox_inches='tight')
         plt.close(fig2a)
         print(f"Saved ICA sources figure (part 1) to: {fig2a_path}")
@@ -734,7 +735,7 @@ class OPM_Pipeline:
         
         fig2b.suptitle(f'ICA Sources (Components {half_components}-{n_components-1}) - Subject {subid} (First 3 Seconds)')
         fig2b.tight_layout()
-        fig2b_path = path_results + projectname +'/' + f"{subid}_ICA_sourcesB.png"
+        fig2b_path = path_results +'/' + projectname +'/' + f"{subid}_ICA_sourcesB.png"
         fig2b.savefig(fig2b_path, dpi=300, bbox_inches='tight')
         plt.close(fig2b)
         print(f"Saved ICA sources figure (part 2) to: {fig2b_path}")

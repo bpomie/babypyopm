@@ -181,7 +181,7 @@ class Utils:
             data_recording=os.path.join(root_data_path, 'data/raw_recording'),
             data_rotated_sensorlocs=os.path.join(root_data_path, 'data/raw_rotated_sensorlocations'),
             data_filtered=os.path.join(root_data_path, 'data/processed_filtered'),
-            results=os.path.join(root_data_path, 'results')
+            results=os.path.join(root_data_path, 'results'),
             )
     
     def load_concatenate_data(self, dataset, selected_subj, task_ids):
@@ -254,7 +254,8 @@ class Utils:
     def get_participant_id(self, raw): #Basia
         filename = raw.filenames[0]
         print(filename)
-        subid = re.search(r'sub-\d+', filename).group()
+        print('Get ppt ID from filename')
+        subid = re.search(r'sub-\d+', filename.name).group()
         
         return subid
     
@@ -291,6 +292,8 @@ class Utils:
         
         new_filename = f"{subid}_file-{task}_{descriptor}.fif"
         new_full_path = savepath + '/' + subid + '/' + output_folder + '/'+ new_filename
+        os.makedirs(os.path.dirname(new_full_path), exist_ok=True)
+
         
         raw.save(new_full_path, overwrite=True)
         
