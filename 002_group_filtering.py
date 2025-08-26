@@ -34,6 +34,7 @@ dataset = study(os.path.join(paths.data, basename))
 # List all folders / subjects in '~/data'
 subjects = [f for f in os.listdir(paths.data) if os.path.isdir(os.path.join(paths.data, f))]
 print(subjects)
+subjects = ['sub-107']
 
 # Load datasets
 data = preprocess_analyse.load_data(dataset, subjects,paths.data,input_folder,task)
