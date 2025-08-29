@@ -30,7 +30,7 @@ root_data_path = '/Users/b.pomiechowska@bham.ac.uk/Documents/GitHub/babypyopm/'
 # =============================================================================
 
 # Enter which participant you would like to explore
-subj = 'sub-002'
+subj = 'sub-107'
 
 # =============================================================================
 # PATHS
@@ -43,6 +43,8 @@ path_results_rms  = os.path.join(root_data_path,'results','preprocessing_routine
 
 print(path_data)
 print(path_results_erf)
+
+path_evoked = os.path.join(path_data,subj,'evoked',f"{subj}_evoked.fif")
 
 # Path task
 path_task_data_raw = os.path.join(path_data,subj,'raw_rotated_sensorlocations',f"{subj}_file-oddballTones_upright_wsensorlocations_raw.fif")
@@ -72,7 +74,7 @@ fildata = mne.io.read_raw_fif(path_task_data_filtered, preload=True)
 
 # Load bad channel info from the csv file
 bad_channels = pd.read_csv(path_bad_channels, sep='\t')
-bad_channels = bad_channels['badchannels'].tolist()
+bad_channels = bad_channels['badchannelslots'].tolist()
 print(bad_channels)
 
 fildata.info['bads'].clear()
@@ -151,9 +153,9 @@ print(epochs)
 ylim = dict(mag=[-500, 1000])
 times = np.linspace(-.1, .6, 5)
 
-evoked = epochs.average()
-fig_evoked_simple = evoked.plot(spatial_colors=True, gfp=True, picks = "mag", exclude = 'bads')
-fig_evoked_joint = evoked.plot_joint(times=times)
+evoked_overall = epochs.average()
+fig_evoked_simple = evoked_overall.plot(spatial_colors=True, gfp=True, picks = "mag", exclude = 'bads')
+fig_evoked_joint = evoked_overall.plot_joint(times=times)
 
 fig_evoked_joint.suptitle("ERF (data collapsed across conditions): " + subj)
 fig_evoked_joint.savefig(os.path.join(path_results_erf,subj+'_erf_joint_overall'), dpi=300, bbox_inches="tight")
@@ -161,10 +163,11 @@ fig_evoked_joint.savefig(os.path.join(path_results_erf,subj+'_erf_joint_overall'
 fig_evoked_simple.suptitle("ERF (data collapsed across conditions): " + subj)
 fig_evoked_simple.savefig(os.path.join(path_results_erf,subj+'_erf_simple_overall'), dpi=300, bbox_inches="tight")
 
-fig_evoked_topo = evoked.plot_topomap(ch_type="mag", times=times, colorbar=True, average=0.05) # vlim=(-500, 500)
+fig_evoked_topo = evoked_overall.plot_topomap(ch_type="mag", times=times, colorbar=True, average=0.05) # vlim=(-500, 500)
 
 fig_evoked_topo.suptitle("ERF (data collapsed across conditions): " + subj)
 fig_evoked_topo.savefig(os.path.join(path_results_erf,subj+'_erf_topo_overall'), dpi=300, bbox_inches="tight")
+
 
 # =============================================================================
 # EQUALIZE EPOCH NUMBERS BTW CONDITIONS (FREQ vs INFREQ)
@@ -172,31 +175,64 @@ fig_evoked_topo.savefig(os.path.join(path_results_erf,subj+'_erf_topo_overall'),
 event_id = event_dict
 
 epochs_list = [epochs[k] for k in event_id]
-mne.epochs.equalize_epoch_counts(epochs_list)
+#mne.epochs.equalize_epoch_counts(epochs_list, method='random')
+
+# =============================================================================
+# EQUALIZE RANDOMLY EPOCH NUMBERS BTW CONDITIONS (FREQ vs INFREQ)
+# =============================================================================
 
 # Concatenate the epochs
 combined_epochs = mne.concatenate_epochs(epochs_list)
+
+def equalize_and_combine_epochs(epochs_list, seed=None):
+    """Randomly equalize epoch counts and return a combined Epochs object."""
+    if seed is not None:
+        np.random.seed(seed)
+    
+    # Find minimum number of epochs
+    min_len = min(len(epochs) for epochs in epochs_list)
+    
+    # Randomly downsample each condition
+    equalized = []
+    for epochs in epochs_list:
+        indices = np.random.choice(len(epochs), min_len, replace=False)
+        equalized.append(epochs[indices])
+    
+    # Combine into one Epochs object
+    combined = mne.concatenate_epochs(equalized)
+    return combined
+
+# Usage
+equalized_epochs = equalize_and_combine_epochs(epochs_list, seed=42)
+
+print(equalized_epochs)
 
 # =============================================================================
 # PLOT EPOCHS w equal numbers per condition
 # =============================================================================
 
-aux = epochs
-aux = combined_epochs
+aux = equalized_epochs
 
 #ts_args = dict(ylim=dict(mag=[-850, 850]))
 
-evoked = aux["freq/tone"].average()
-freq = evoked.plot_joint(title = "freq/tone", times = times)
+evoked_frequent = aux["freq/tone"].average()
+freq = evoked_frequent.plot_joint(title = "freq/tone", times = times)
 
-evoked = aux["infreq/tone"].average()
-infreq = evoked.plot_joint(title = "infreq/tone",times = times)
+evoked_infrequent = aux["infreq/tone"].average()
+infreq = evoked_infrequent.plot_joint(title = "infreq/tone",times = times)
 
 freq.suptitle("ERF frequent tone: " + subj)
 freq.savefig(os.path.join(path_results_erf,subj+'_erf_joint_freq'), dpi=300, bbox_inches="tight")
 
 infreq.suptitle("ERF infrequent tone: " + subj)
 infreq.savefig(os.path.join(path_results_erf,subj+'_erf_joint_infreq'), dpi=300, bbox_inches="tight")
+
+# =============================================================================
+# SAVE EVOKED 
+# =============================================================================
+
+evokeds = [evoked_overall, evoked_frequent, evoked_infrequent]
+mne.write_evokeds(path_evoked, evokeds, overwrite = True)
 
 # =============================================================================
 # ROOT MEAN SQUARE

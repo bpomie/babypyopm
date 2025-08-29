@@ -7,6 +7,8 @@ utils = utils_study.Utils()
 import utils_preprocessing_analysis
 preprocess_analyse = utils_preprocessing_analysis.OPM_Pipeline(incl_report=False)
 
+import mne
+
 # =============================================================================
 # Parameters 
 # =============================================================================
@@ -34,12 +36,15 @@ dataset = study(os.path.join(paths.data, basename))
 # List all folders / subjects in '~/data'
 subjects = [f for f in os.listdir(paths.data) if os.path.isdir(os.path.join(paths.data, f))]
 print(subjects)
-subjects = ['sub-107']
 
 # Load datasets
 data = preprocess_analyse.load_data(dataset, subjects,paths.data,input_folder,task)
 
+mne.viz.plot_sensors(data[0].info, show_names=True)
+
 filtered_data = [preprocess_analyse.run_filter(d, .1, 40, notch = True) for d in data]
+
+mne.viz.plot_sensors(filtered_data[0].info, show_names=True)
 
 [utils.save_fif_path(d, task,'filtered_01_40', paths.data, output_folder) for d in filtered_data]
 

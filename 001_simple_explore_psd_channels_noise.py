@@ -25,7 +25,7 @@ import os
 # =============================================================================
 
 # Inser the path to your project folder
-root_data_path = '/Users/b.pomiechowska@bham.ac.uk/Documents/analysesopm/project_setup_methods_paper/'
+root_data_path = '/Users/b.pomiechowska@bham.ac.uk/Documents/GitHub/babypyopm'
 
 # Construct paths
 path_data  = os.path.join(root_data_path,'data')
@@ -40,7 +40,7 @@ print(path_results_psd)
 # =============================================================================
 
 # Enter which participant you would like to explore
-subj = 'sub-103'
+subj = 'sub-107'
 
 # =============================================================================
 # PATHS

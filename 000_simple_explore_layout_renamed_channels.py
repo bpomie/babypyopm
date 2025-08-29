@@ -23,14 +23,14 @@ import glob
 # =============================================================================
 
 # Enter which participant you would like to explore
-subj = 'sub-002'
+subj = 'sub-102'
 # =============================================================================
 # INDICATE YOUR PATH
 # =============================================================================
 
 # Inser the path to your project folder
-#root_data_path = '/Users/b.pomiechowska@bham.ac.uk/Documents/GitHub/babypyopm/'
-root_data_path = '/Users/a.pesquita@bham.ac.uk/Documents/GitHub/babypyopm/Untitled'
+root_data_path = '/Users/b.pomiechowska@bham.ac.uk/Documents/GitHub/babypyopm/'
+#root_data_path = '/Users/a.pesquita@bham.ac.uk/Documents/GitHub/babypyopm/Untitled'
 
 # =============================================================================
 # PATHS
@@ -165,8 +165,6 @@ sensor_locations['slot_name'] = (
 print(sensor_locations)
 
 channel_names_csv = sensor_locations['channel_name'].tolist()
-
-
 
 print(channel_names_csv)
 len(channel_list_task)

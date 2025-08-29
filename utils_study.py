@@ -23,6 +23,9 @@ matplotlib.use('Qt5Agg')  # Set the backend to Qt5Agg
 
 from types import SimpleNamespace
 
+from pathlib import Path
+
+
 class Study:
     """Class for simple file finding and looping.
     
@@ -253,6 +256,7 @@ class Utils:
     
     def get_participant_id(self, raw): #Basia
         filename = raw.filenames[0]
+        filename = Path(filename)
         print(filename)
         print('Get ppt ID from filename')
         subid = re.search(r'sub-\d+', filename.name).group()
