@@ -40,7 +40,7 @@ print(path_results_psd)
 # =============================================================================
 
 # Enter which participant you would like to explore
-subj = 'sub-107'
+subj = 'sub-105'
 
 # =============================================================================
 # PATHS
@@ -86,19 +86,19 @@ fig_task.savefig(os.path.join(path_results_psd,subj+'_task'), dpi=300)
 # LIFTS
 # =============================================================================
 
-# aux = raw_task
+aux = raw_task
 
-# picks = mne.pick_types(aux.info, meg=True, exclude='bads')
+picks = mne.pick_types(aux.info, meg=True, exclude='bads')
  
-# amp_scale = 1e12  # Converting to pico Tesla(pT)
-# stop = len(aux.times)
-# step = 1
-# data_ds1, time_ds = aux[picks[::2], :stop] # picks[::5] -- selects every nth sensor;
-# data_ds2, time_ds = data_ds1[:, ::step] * amp_scale, time_ds[::step]
-# fig_raw_amp, ax = plt.subplots(layout="constrained")
-# plot_kwargs = dict(lw=1, alpha=1)
-# ax.plot(time_ds, data_ds2.T - np.mean(data_ds2, axis=1), **plot_kwargs)
-# ax.grid(True)
-# set_kwargs = dict(ylim=(-3000, 3000), xlim=time_ds[[0, -1]], xlabel="Time (s)", ylabel="Amplitude (pT)")
-# ax.set(title="Before Filters", **set_kwargs)
-# plt.show()
+amp_scale = 1e12  # Converting to pico Tesla(pT)
+stop = len(aux.times)
+step = 1
+data_ds1, time_ds = aux[picks[::2], :stop] # picks[::5] -- selects every nth sensor;
+data_ds2, time_ds = data_ds1[:, ::step] * amp_scale, time_ds[::step]
+fig_raw_amp, ax = plt.subplots(layout="constrained")
+plot_kwargs = dict(lw=1, alpha=1)
+ax.plot(time_ds, data_ds2.T - np.mean(data_ds2, axis=1), **plot_kwargs)
+ax.grid(True)
+set_kwargs = dict(ylim=(-3000, 3000), xlim=time_ds[[0, -1]], xlabel="Time (s)", ylabel="Amplitude (pT)")
+ax.set(title="Before Filters", **set_kwargs)
+plt.show()

@@ -38,8 +38,8 @@ subj = 'sub-107'
 
 # Construct paths
 path_data  = os.path.join(root_data_path,'data')
-path_results_erf  = os.path.join(root_data_path,'results','preprocessing_routine_1','erf')
-path_results_rms  = os.path.join(root_data_path,'results','preprocessing_routine_1','rms')
+path_results_erf  = os.path.join(root_data_path,'results','preprocessing_routine_2','erf')
+path_results_rms  = os.path.join(root_data_path,'results','preprocessing_routine_2','rms')
 
 print(path_data)
 print(path_results_erf)
@@ -49,18 +49,21 @@ path_evoked = os.path.join(path_data,subj,'evoked',f"{subj}_evoked.fif")
 # Path task
 path_task_data_raw = os.path.join(path_data,subj,'raw_rotated_sensorlocations',f"{subj}_file-oddballTones_upright_wsensorlocations_raw.fif")
 path_task_data_filtered = os.path.join(path_data,subj,'processed_filtered',f"{subj}_file-oddballTones_filtered_01_40.fif")
+path_task_data_preprocessing_routine_3 = os.path.join(path_data,subj,'preprocessing_routine_2',f"{subj}_manual_clean.fif")
 path_bad_channels = os.path.join(path_data,subj,f"{subj}_badchannels.tsv")
 path_event_dictionary = os.path.join(path_data,subj,f"{subj}_event_dict.json")
 
 print(path_task_data_raw)
 print(path_task_data_filtered)
 
+path_load_data = path_task_data_preprocessing_routine_3
+
 # =============================================================================
 # LOAD DATA (raw & filtered)
 # =============================================================================
 
 raw = mne.io.read_raw_fif(path_task_data_raw, preload=True)
-fildata = mne.io.read_raw_fif(path_task_data_filtered, preload=True)
+fildata = mne.io.read_raw_fif(path_load_data, preload=True)
 
 # =============================================================================
 # CROP DATA FILE [if needed]
@@ -108,7 +111,7 @@ filpsd.plot()
 # =============================================================================
 
 events = mne.find_events(raw, stim_channel='di32')
-mne.viz.plot_events(events)
+# mne.viz.plot_events(events)
 
 # =============================================================================
 # EVENT DICTIONARY
@@ -124,7 +127,7 @@ print(event_dict)
 # =============================================================================
 
 # Plot the event channel
-aux = raw.copy().pick(picks="stim").plot(start=3, duration=6)
+#aux = raw.copy().pick(picks="stim").plot(start=3, duration=6)
 
 # Calculate the ISI (i.e. time between events)
 differences_samples = np.diff(events[:, 0])

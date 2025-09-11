@@ -47,7 +47,7 @@ output_folder = 'processed_filtered'
 # Inser the path to your project folder
 root_data_path = '/Users/b.pomiechowska@bham.ac.uk/Documents/GitHub/babypyopm/'
 
-path_results_rms  = os.path.join(root_data_path,'results','preprocessing_routine_1','erf_grandaverage')
+path_results_rms  = os.path.join(root_data_path,'results','preprocessing_routine_3','erf_grandaverage')
 
 # =============================================================================
 # Set up 

@@ -224,7 +224,7 @@ class OPM_Pipeline:
     
     def get_participant_id(self, raw): #Basia
         filename = raw.filenames[0]
-        subid = re.search(r'sub-\d+', filename.name).group()
+        subid = re.search(r'sub-\d+', filename).group()
         
         return subid
     
@@ -692,7 +692,11 @@ class OPM_Pipeline:
         #      logging system 
         #    - In method sections it is usually reported some descriptive statistics of how many components per subject were rejected
 
-        
+
+        # Create logging directory if it doesn't exist
+        path_figures = os.path.join(path_results, projectname, 'ica')
+        os.makedirs(path_figures, exist_ok=True)
+
         raw_resmpl = data.copy().pick('mag')
         raw_resmpl.resample(200) # dowsample to 200 Hz
         raw_resmpl.filter(1, 95) # band-pass filtert from 1 to 40 Hz
@@ -708,7 +712,7 @@ class OPM_Pipeline:
         # Save figure of ICA components
         subid = self.get_participant_id(data)
         fig = ica.plot_components(picks=range(ica.n_components_), show=False)
-        fig_path = path_results +'/' +  projectname +'/' + f"{subid}_ICA_components.png"
+        fig_path = path_figures +'/' + f"{subid}_ICA_components.png"
         os.makedirs(os.path.dirname(fig_path), exist_ok=True)
         fig.savefig(fig_path, dpi=300, bbox_inches='tight')
         plt.close(fig)
@@ -744,7 +748,7 @@ class OPM_Pipeline:
 
         fig2a.suptitle(f'ICA Sources (Components 0-{half_components-1}) - Subject {subid} (First 3 Seconds)')
         fig2a.tight_layout()
-        fig2a_path = path_results +'/' + projectname +'/' + f"{subid}_ICA_sourcesA.png"
+        fig2a_path = path_figures +'/' + f"{subid}_ICA_sourcesA.png"
         fig2a.savefig(fig2a_path, dpi=300, bbox_inches='tight')
         plt.close(fig2a)
         print(f"Saved ICA sources figure (part 1) to: {fig2a_path}")
@@ -758,9 +762,9 @@ class OPM_Pipeline:
             if i == len(second_half) - 1:
                 axs_b[i].set_xlabel('Time (s)')
         
-        fig2b.suptitle(f'ICA Sources (Components {half_components}-{n_components-1}) - Subject {subid} (First 3 Seconds)')
+        fig2b.suptitle(f'ICA Sources (Components {half_components}-{n_cmponents-1}) - Subject {subid} (First 3 Seconds)')
         fig2b.tight_layout()
-        fig2b_path = path_results +'/' + projectname +'/' + f"{subid}_ICA_sourcesB.png"
+        fig2b_path = path_figures +'/' + f"{subid}_ICA_sourcesB.png"
         fig2b.savefig(fig2b_path, dpi=300, bbox_inches='tight')
         plt.close(fig2b)
         print(f"Saved ICA sources figure (part 2) to: {fig2b_path}")
@@ -768,6 +772,26 @@ class OPM_Pipeline:
             
         # Create and save TSV file with excluded components information
         excluded_components = ica.exclude
+        
+        
+        # Print the excluded components | 11 Sept 25 (BP)
+        print('EXCLUDED COMPONENTS: ')
+        print(excluded_components)
+        
+        ica.plot_properties(data, picks=excluded_components)
+        
+        # Plot and save properties of excluded components | 11 Sept 25 (BP)
+        for comp in excluded_components:
+            fig = ica.plot_properties(data, picks=comp, show=False)
+            #if isinstance(fig, list):
+            for i, f in enumerate(fig):
+                fname = os.path.join(path_figures, f"{subid}_ICA_exluded_component_{comp}.png")
+                f.savefig(fname, dpi=300)
+                plt.close(f)
+                #else:
+                    #fname = os.path.join(path_results, f"component_{comp}.png")
+                    #fig.savefig(fname, dpi=300)
+                    #plt.close(fig)
         
         # Create a DataFrame with the component information
         comp_data = {
@@ -997,11 +1021,14 @@ class OPM_Pipeline:
         if isinstance(data, mne.io.Raw):
             # Handle Raw object
             raw_filename = data.filenames[0]
-            match = re.search(r'(\d{8}_\d{6}_sub-P\d+)', raw_filename)
-            cur_pptdata = str(match.group(1))
+            #match = re.search(r'(\d{8}_\d{6}_sub-P\d+)', raw_filename)
+            #print(match)
+            #cur_pptdata = str(match.group(1))
+            subid = self.get_participant_id(data) # 11 Setp 2025 (BP)
+            cur_pptdata = subid
             
             # Plot Raw data
-            data.plot(
+            fig = data.plot(
                 block=True,
                 theme="light",
                 show_scrollbars=True,
@@ -1015,12 +1042,14 @@ class OPM_Pipeline:
                 events=None
             )
             
+            fig.fake_keypress("a")  # Simulates user pressing 'a' on the keyboard.
+            
             # Save Raw data
             path, filename = os.path.split(raw_filename)
             name, extension = os.path.splitext(filename)
             if name.endswith('_raw'):
                 name = name[:-4]
-            new_filename = f"{name}_inspected_raw{extension}"
+            new_filename = f"{name}_visually_inspected_raw{extension}"
             new_full_path = os.path.join(path, new_filename)
             data.save(new_full_path, overwrite=True)
             
