@@ -3,7 +3,7 @@
 """
 Created on Sat Mar 29 11:44:32 2025
 
-@author: b.pomiechowska@bham.ac.uk
+@author: b.pomiechowska@bham.ac.uk; PLEASE ADD YOUR EMAILS HERE!
 """
 
 import numpy as np
@@ -32,29 +32,51 @@ root_data_path = '/Users/b.pomiechowska@bham.ac.uk/Documents/GitHub/babypyopm/'
 # Enter which participant you would like to explore
 subj = 'sub-107'
 
+# Enter which preprocessing routine would you like to explore
+# Select the input from: processed_1_filter, processed_2_filter_ica, processed_3_filter_ica_manualclean
+preprocessing_routine_input = 'processed_3_filter_ica_manualclean';
+
+# Set output conditionally based on selected input
+if preprocessing_routine_input == 'processed_1_filter':
+    preprocessing_routine_output = 'preprocessing_routine_1'
+
+elif preprocessing_routine_input == 'processed_2_filter_ica':
+    preprocessing_routine_output = 'preprocessing_routine_2'
+
+elif preprocessing_routine_input == 'processed_3_filter_ica_manualclean':
+    preprocessing_routine_output = 'preprocessing_routine_3'
+
+else:
+    raise ValueError('Unknown preprocessing_routine_input')
+
+
 # =============================================================================
 # PATHS
 # =============================================================================
 
 # Construct paths
 path_data  = os.path.join(root_data_path,'data')
-path_results_erf  = os.path.join(root_data_path,'results','preprocessing_routine_2','erf')
-path_results_rms  = os.path.join(root_data_path,'results','preprocessing_routine_2','rms')
+path_results_erf  = os.path.join(root_data_path,'results',preprocessing_routine_output,'erf')
+path_results_rms  = os.path.join(root_data_path,'results',preprocessing_routine_output,'rms')
 
 print(path_data)
 print(path_results_erf)
+print(path_results_rms)
 
 path_evoked = os.path.join(path_data,subj,'evoked',f"{subj}_evoked.fif")
 
+print(path_evoked)
+
 # Path task
 path_task_data_raw = os.path.join(path_data,subj,'raw_rotated_sensorlocations',f"{subj}_file-oddballTones_upright_wsensorlocations_raw.fif")
-path_task_data_filtered = os.path.join(path_data,subj,'processed_filtered',f"{subj}_file-oddballTones_filtered_01_40.fif")
-path_task_data_preprocessing_routine_3 = os.path.join(path_data,subj,'preprocessing_routine_2',f"{subj}_manual_clean.fif")
+#path_task_data_filtered = os.path.join(path_data,subj,'processed_filtered',f"{subj}_file-oddballTones_filtered_01_40.fif")
+#path_task_data_preprocessing_routine_3 = os.path.join(path_data,subj,'preprocessing_routine_2',f"{subj}_manual_clean.fif")
 path_bad_channels = os.path.join(path_data,subj,f"{subj}_badchannels.tsv")
 path_event_dictionary = os.path.join(path_data,subj,f"{subj}_event_dict.json")
 
 print(path_task_data_raw)
-print(path_task_data_filtered)
+print(path_bad_channels)
+print(path_event_dictionary)
 
 path_load_data = path_task_data_preprocessing_routine_3
 

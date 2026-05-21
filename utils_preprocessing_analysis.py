@@ -310,29 +310,63 @@ class OPM_Pipeline:
             
         return alldata
     
-    def load_evoked(self, dataset, selected_subj,pathdata,input_folder): #TO FIX
+    # def load_evoked(self, dataset, selected_subj,pathdata,input_folder): #TO FIX
         
+    #     alldata = []
+        
+    #     if selected_subj == 'all':
+    #         subj_ids = [subject['subj_id'] for subject in self.subj_info['subjs'] 
+    #                    if 'subj_id' in subject]
+    #     else:
+    #         subj_ids = selected_subj
+            
+    #     print(subj_ids)
+        
+    #     for sid in subj_ids:
+    #         print(sid)            
+    #         #pattern = os.path.join(pathdata,sid,input_folder,f"{sid}_evoked.fif")
+    #         #print(pattern)
+    #         #match = glob.glob(pattern)
+    #         data_name = dataset.match_files[sid]
+    #         print(data_name)
+            
+    #         data_ppt = mne.read_evokeds(data_name)
+    #         alldata.append(data_ppt)
+            
+    #     return alldata
+    
+    def load_evoked(self, dataset, selected_subj, pathdata, input_folder):
+
         alldata = []
-        
+    
         if selected_subj == 'all':
-            subj_ids = [subject['subj_id'] for subject in self.subj_info['subjs'] 
-                       if 'subj_id' in subject]
+            subj_ids = [
+                subject['subj_id']
+                for subject in self.subj_info['subjs']
+                if 'subj_id' in subject
+            ]
         else:
             subj_ids = selected_subj
-            
-        print(subj_ids)
-        
+    
         for sid in subj_ids:
-            print(sid)            
-            pattern = os.path.join(pathdata,sid,input_folder,f"{sid}_evoked.fif")
-            print(pattern)
-            match = glob.glob(pattern)
-            data_name = match[0]
+            print(sid)
+    
+            matches = [
+                file
+                for file, values in zip(dataset.match_files, dataset.match_values)
+                if values['subj'] == sid
+            ]
+    
+            if len(matches) == 0:
+                print(f"No file found for {sid}")
+                continue
+    
+            data_name = matches[0]
             print(data_name)
-            
+    
             data_ppt = mne.read_evokeds(data_name)
             alldata.append(data_ppt)
-            
+    
         return alldata
     
     def load_concatenate_data(self, dataset, selected_subj, task_ids):

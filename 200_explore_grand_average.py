@@ -41,13 +41,37 @@ import mne
 # Parameters 
 # =============================================================================
 
-input_folder = 'evoked'
-output_folder = 'processed_filtered'
+#input_folder = 'evoked'
+#output_folder = 'processed_filtered'
 
 # Inser the path to your project folder
 root_data_path = '/Users/b.pomiechowska@bham.ac.uk/Documents/GitHub/babypyopm/'
 
-path_results_rms  = os.path.join(root_data_path,'results','preprocessing_routine_3','erf_grandaverage')
+
+# =============================================================================
+# SELECT PREPROCESSING ROUTINE
+# =============================================================================
+
+# Enter which preprocessing routine would you like to explore
+# Select the input from: processed_1_filter, processed_2_filter_ica, processed_3_filter_ica_manualclean
+preprocessing_routine_input = 'processed_3_filter_ica_manualclean';
+
+# Set output conditionally based on selected input
+if preprocessing_routine_input == 'processed_1_filter':
+    preprocessing_routine_output = 'preprocessing_routine_1'
+
+elif preprocessing_routine_input == 'processed_2_filter_ica':
+    preprocessing_routine_output = 'preprocessing_routine_2'
+
+elif preprocessing_routine_input == 'processed_3_filter_ica_manualclean':
+    preprocessing_routine_output = 'preprocessing_routine_3'
+
+else:
+    raise ValueError('Unknown preprocessing_routine_input')
+    
+path_results_rms  = os.path.join(root_data_path,'results',preprocessing_routine_output,'erf_grandaverage')
+print(path_results_rms)
+
 
 # =============================================================================
 # Set up 
@@ -57,7 +81,7 @@ path_results_rms  = os.path.join(root_data_path,'results','preprocessing_routine
 paths = utils.get_paths(root_data_path)
 
 # Define the template for generating the filename for raw FIF data files
-basename = '{subj}/evoked/{sub-subj}_evoked.fif'
+basename = f'{{subj}}/{preprocessing_routine_input}/{{sub-subj}}_evoked.fif'
 
 # Find FIF files that correspond to the template defined above
 dataset = study(os.path.join(paths.data, basename))
@@ -72,7 +96,7 @@ print(subjects)
     2 epochs from the frequent condition
     3 epochs from the infrequent
     """
-all_subjects_evokeds = preprocess_analyse.load_evoked(dataset, subjects,paths.data,input_folder)
+all_subjects_evokeds = preprocess_analyse.load_evoked(dataset, subjects,paths.data,preprocessing_routine_input)
 
 
 for subj_evokeds in all_subjects_evokeds:
