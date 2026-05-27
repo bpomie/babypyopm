@@ -1,12 +1,15 @@
 
 # babypyopm
 
+# Repository info
+
 This is a repository for Orioli*, G., Pesquita*, A.,..., Kowalczyk**, A., & Pomiechowska**, B. (in prep). Kick-starting infant OPM-MEG: proof-of-concept platform, open-science protocols, analysis pipeline BabyPy_OPM, and auditory oddball data.
 
 This repository comprises:
 + infant OPM-MEG analysis pipeline _BabyPy)_OPM_
 + Supplmental materials ?? to ??
 
+The data are available on: [ADD]
 
 # Preliminaries
 
