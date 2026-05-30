@@ -6,28 +6,26 @@
 This is a repository for Orioli*, G., Pesquita*, A.,..., Kowalczyk**, A., & Pomiechowska**, B. (in prep). Kick-starting infant OPM-MEG: proof-of-concept platform, open-science protocols, analysis pipeline BabyPy_OPM, and auditory oddball data.
 
 This repository comprises:
-+ infant OPM-MEG analysis pipeline _BabyPy)_OPM_
-+ Supplmental materials ?? to ??
++ infant OPM-MEG analysis pipeline _BabyPY_OPM_
++ Supplmental materials 01 to 12 [https://github.com/bpomie/babypyopm/tree/main/supplemental_materials]
 
-The data are available on: [ADD]
+The data, raw and processed, are available on the project OSF repository: https://osf.io/43xap/overview
 
 # Preliminaries
 
 #### Important information about the infant helmet / sensor locations
 
-+ Sensor locations for the FieldLine infant rigid helmet are not integrated in the .fif file at recording.
-+ They are stored in a seperate .tsv in each participants' folders, path: /data/sub-{subj}/📄 sub-{subj}_referencechannels_location.json
++ Sensor locations for the FieldLine prototype infant helmet are not integrated in the .fif file at recording.
++ They are stored in seperate .tsv files for each participant, path: /data/sub-{subj}/📄 sub-{subj}_referencechannels_location.json
 + Script `000_simple_explore_layout.py` adds sensor locations to the **_raw.fif** files (see below and manuscript outline for more details).
 
 # Scripts
-
-All scripts should work locally on your machines.
 
 NOTE: Be sure to specify your working directory in each script.
 
 ## `simple_explore` scripts
 
-`simple_explore` scripts are walkthroughs on single participants and use base MNE functions. Once we're happy with the contents, we can easily turn them into a pipeline. Please see manuscript outline for more details and tasks.
+`simple_explore` scripts are walkthroughs on single participants and use base MNE functions. Please see manuscript outline for more details and tasks.
 
 ## `group` scripts
 
