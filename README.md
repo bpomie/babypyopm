@@ -15,8 +15,8 @@ The data, raw and processed, are available on the project OSF repository: https:
 
 #### Important information about the infant helmet / sensor locations
 
-+ Sensor locations for the FieldLine infant rigid helmet are not integrated in the .fif file at recording.
-+ They are stored in a seperate .tsv in each participants' folders, path: /data/sub-{subj}/📄 sub-{subj}_referencechannels_location.json
++ Sensor locations for the FieldLine prototype infant helmet are not integrated in the .fif file at recording.
++ They are stored in seperate .tsv files for each participant, path: /data/sub-{subj}/📄 sub-{subj}_referencechannels_location.json
 + Script `000_simple_explore_layout.py` adds sensor locations to the **_raw.fif** files (see below and manuscript outline for more details).
 
 # Scripts
