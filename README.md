@@ -6,10 +6,10 @@
 This is a repository for Orioli*, G., Pesquita*, A.,..., Kowalczyk**, A., & Pomiechowska**, B. (in prep). Kick-starting infant OPM-MEG: proof-of-concept platform, open-science protocols, analysis pipeline BabyPy_OPM, and auditory oddball data.
 
 This repository comprises:
-+ infant OPM-MEG analysis pipeline _BabyPy)_OPM_
-+ Supplmental materials ?? to ??
++ infant OPM-MEG analysis pipeline _BabyPY_OPM_
++ Supplmental materials 01 to 12 [https://github.com/bpomie/babypyopm/tree/main/supplemental_materials]
 
-The data are available on: [ADD]
+The data, raw and processed, are available on the project OSF repository: https://osf.io/43xap/overview
 
 # Preliminaries
 
@@ -21,13 +21,11 @@ The data are available on: [ADD]
 
 # Scripts
 
-All scripts should work locally on your machines.
-
 NOTE: Be sure to specify your working directory in each script.
 
 ## `simple_explore` scripts
 
-`simple_explore` scripts are walkthroughs on single participants and use base MNE functions. Once we're happy with the contents, we can easily turn them into a pipeline. Please see manuscript outline for more details and tasks.
+`simple_explore` scripts are walkthroughs on single participants and use base MNE functions. Please see manuscript outline for more details and tasks.
 
 ## `group` scripts
 
