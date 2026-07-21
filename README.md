@@ -19,18 +19,6 @@ The data, raw and processed, are available on the project OSF repository: https:
 + They are stored in seperate .tsv files for each participant, path: /data/sub-{subj}/📄 sub-{subj}_referencechannels_location.json
 + Script `000_simple_explore_layout.py` adds sensor locations to the **_raw.fif** files (see below and manuscript outline for more details).
 
-# Scripts
-
-NOTE: Be sure to specify your working directory in each script.
-
-## `simple_explore` scripts
-
-`simple_explore` scripts are walkthroughs on single participants and use base MNE functions. Please see manuscript outline for more details and tasks.
-
-## `group` scripts
-
-`group` scripts loop through all subjects in the data folder. They use utils_* pipelines. Please see manuscript outline for more details and tasks.
-
 # Current project structure
 
 ```text
@@ -72,6 +60,28 @@ NOTE: Be sure to specify your working directory in each script.
 ├── 📝 utils_preprocessing_analysis.py
 └── {...}
 ```
+# Scripts and files
+
+NOTE: Be sure to specify your working directory in each script.
+
+## Overview
+
+### `simple_explore` scripts
+
+`simple_explore` scripts are walkthroughs on single participants and use base MNE functions. Please see manuscript outline for more details and tasks.
+
+### `group` scripts
+
+`group` scripts loop through all subjects in the data folder. They use utils_* pipelines. Please see manuscript outline for more details and tasks.
+
+## Walk through
+
+1.	Files generated automatically during recording
+(path: ~/data/sub-{nnn}/raw_recording/)
+-	{name}_channels.tsv
+-	{name}_raw.fif
+
+
 ## `montages`
 contains image files of sensor motanges: 
   + 📄 `*.png` 2D sensor layout plots
