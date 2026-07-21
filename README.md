@@ -74,7 +74,7 @@ NOTE: Be sure to specify your working directory in each script.
 
 `group` scripts loop through all subjects in the data folder. They use utils_* pipelines. Please see manuscript outline for more details and tasks.
 
-## Walk through
+### input & output `files` for each script
 
 1.	Files generated automatically during recording
 (path: '~/data/sub-{nnn}/raw_recording/')
