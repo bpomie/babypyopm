@@ -81,6 +81,14 @@ NOTE: Be sure to specify your working directory in each script.
 -	{name}_channels.tsv
 -	{name}_raw.fif
 
+2.	Files generated during/after recording with manual experimenter input
+(path: ~/data/sub-{nnn}/)
+-	{name}_badchannels.tsv
+-	{name}_sensor_locations.tsv
+-	{name}_sub-107_event_dict.json
+-	{name}_referencechannels_location.json
+
+
 
 ## `montages`
 contains image files of sensor motanges: 
