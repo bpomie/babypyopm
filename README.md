@@ -76,17 +76,27 @@ NOTE: Be sure to specify your working directory in each script.
 
 ### `files`
 
-1. Files generated automatically during recording
+1. Files **generated automatically during recording**
 (path: '~/data/sub-{nnn}/raw_recording/')
 -	'sub-{nnn}_channels.tsv'
 -	'sub-{nnn}_raw.fif'
 
-2. Files generated during/after recording with manual experimenter input
+2. Files **generated during/after recording with manual experimenter input**
 (path: '~/data/sub-{nnn}/')
 -	`sub-{nnn}_badchannels.tsv`
 -	`sub-{nnn}_sensor_locations.tsv`
 -	`sub-{nnn}_{sub-}_event_dict.json`
 -	`sub-{nnn}_referencechannels_location.json`
+
+3. Script 000_simple_explore_layout_renamed_channels.py
++ Input (path: ~/data/sub-{nnn}/raw_recording/)
+-	`sub-{nnn}_channels.tsv`
+-	`sub-{nnn}_raw.fif`
++ Outputs
+(path: ~/data/sub-{nnn}/ raw_rotated_sensorlocations/)
+-	`sub-{nnn}_upright_wsensorlocations_raw.fif`
+(path: ~/montages/)
+
 
 
 
