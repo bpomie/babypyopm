@@ -3,7 +3,7 @@
 
 # Repository info
 
-This is a repository for Orioli*, G., Pesquita*, A.,..., Kowalczyk**, A., & Pomiechowska**, B. (in prep). Kick-starting infant OPM-MEG: proof-of-concept platform, open-science protocols, analysis pipeline BabyPy_OPM, and auditory oddball data.
+This is a repository for Orioli*, G., Pesquita*, A.,..., Kowalczyk**, A., & Pomiechowska**, B. (under review). Kick-starting infant OPM-MEG: proof-of-concept platform, open-science protocols, analysis pipeline BabyPy_OPM, and auditory oddball data.
 
 This repository comprises:
 + infant OPM-MEG analysis pipeline _BabyPY_OPM_
@@ -39,9 +39,9 @@ NOTE: Be sure to specify your working directory in each script.
 │   ├── 📁 sub-001
 │   │   ├── 📁 raw_recording
 │   │   ├── 📁 raw_rotated_sensorlocations
-│   │   ├── 📁 processed_filtered
-│   │   ├── 📁 processed_filtered_ica
-│   │   ├── 📁 processed_filtered_{operation}
+│   │   ├── 📁 processed_1_filtered
+│   │   ├── 📁 processed_2_filtered_ica
+│   │   ├── 📁 processed_3_filtered_ica_manualclean
 │   │   ├── 📄 sub-001_notes_session.txt
 │   │   ├── 📄 sub-001_badchannels.tsv
 │   │   ├── 📄 sub-001_sensor_locations.tsv
