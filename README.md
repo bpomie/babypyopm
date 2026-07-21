@@ -83,10 +83,10 @@ NOTE: Be sure to specify your working directory in each script.
 
 2.	Files generated during/after recording with manual experimenter input
 (path: '~/data/sub-{nnn}/')
--	'sub-{nnn}_badchannels.tsv'
--	'sub-{nnn}_sensor_locations.tsv'
--	'sub-{nnn}_{sub-}_event_dict.json'
--	'sub-{nnn}_referencechannels_location.json'
+-	`sub-{nnn}_badchannels.tsv`
+-	`sub-{nnn}_sensor_locations.tsv`
+-	`sub-{nnn}_{sub-}_event_dict.json`
+-	`sub-{nnn}_referencechannels_location.json`
 
 
 
