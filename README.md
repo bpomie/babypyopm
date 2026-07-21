@@ -70,6 +70,8 @@ NOTE: Be sure to specify your working directory in each script.
 
 `simple_explore` scripts are walkthroughs on single participants and use base MNE functions. Please see manuscript outline for more details and tasks.
 
+- `000_simple_explore_layout_renamed_channels.py`
+
 ### `group` scripts
 
 `group` scripts loop through all subjects in the data folder. They use utils_* pipelines. Please see manuscript outline for more details and tasks.
