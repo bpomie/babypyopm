@@ -90,11 +90,11 @@ NOTE: Be sure to specify your working directory in each script.
 
 3. Script 000_simple_explore_layout_renamed_channels.py
 + Input (path: ~/data/sub-{nnn}/raw_recording/)
--	`sub-{nnn}_channels.tsv`
--	`sub-{nnn}_raw.fif`
+  -	`sub-{nnn}_channels.tsv`
+  -	`sub-{nnn}_raw.fif`
 + Outputs
 (path: ~/data/sub-{nnn}/ raw_rotated_sensorlocations/)
--	`sub-{nnn}_upright_wsensorlocations_raw.fif`
+  -	`sub-{nnn}_upright_wsensorlocations_raw.fif`
 (path: ~/montages/)
 
 
