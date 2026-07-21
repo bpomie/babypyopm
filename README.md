@@ -77,16 +77,16 @@ NOTE: Be sure to specify your working directory in each script.
 ## Walk through
 
 1.	Files generated automatically during recording
-(path: ~/data/sub-{nnn}/raw_recording/)
--	{name}_channels.tsv
--	{name}_raw.fif
+(path: '~/data/sub-{nnn}/raw_recording/')
+-	'sub-{nnn}_channels.tsv'
+-	'sub-{nnn}_raw.fif'
 
 2.	Files generated during/after recording with manual experimenter input
-(path: ~/data/sub-{nnn}/)
--	{name}_badchannels.tsv
--	{name}_sensor_locations.tsv
--	{name}_sub-107_event_dict.json
--	{name}_referencechannels_location.json
+(path: '~/data/sub-{nnn}/')
+-	'sub-{nnn}_badchannels.tsv'
+-	'sub-{nnn}_sensor_locations.tsv'
+-	'sub-{nnn}_{sub-}_event_dict.json'
+-	'sub-{nnn}_referencechannels_location.json'
 
 
 
