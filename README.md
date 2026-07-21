@@ -74,14 +74,14 @@ NOTE: Be sure to specify your working directory in each script.
 
 `group` scripts loop through all subjects in the data folder. They use utils_* pipelines. Please see manuscript outline for more details and tasks.
 
-### input & output `files` for each script
+### `files`
 
-1.	Files generated automatically during recording
+1. Files generated automatically during recording
 (path: '~/data/sub-{nnn}/raw_recording/')
 -	'sub-{nnn}_channels.tsv'
 -	'sub-{nnn}_raw.fif'
 
-2.	Files generated during/after recording with manual experimenter input
+2. Files generated during/after recording with manual experimenter input
 (path: '~/data/sub-{nnn}/')
 -	`sub-{nnn}_badchannels.tsv`
 -	`sub-{nnn}_sensor_locations.tsv`
