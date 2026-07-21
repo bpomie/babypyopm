@@ -64,17 +64,21 @@ The data, raw and processed, are available on the project OSF repository: https:
 
 NOTE: Be sure to specify your working directory in each script.
 
-## Overview
+## `scripts` 
 
-### `simple_explore` scripts
+:large_blue_circle: `simple_explore` scripts are walkthroughs on single participants and use base MNE functions. Please see manuscript outline for more details and tasks.
 
-`simple_explore` scripts are walkthroughs on single participants and use base MNE functions. Please see manuscript outline for more details and tasks.
+:large_blue_circle: `group` scripts loop through all subjects in the data folder. They use utils_* pipelines. Please see manuscript outline for more details and tasks.
 
 - `000_simple_explore_layout_renamed_channels.py`
+- `001_simple_explore_psd_channels_noise.py`
+ -002_group_filtering
+- `100_simple_explore_task.py`
+- 
 
 ### `group` scripts
 
-`group` scripts loop through all subjects in the data folder. They use utils_* pipelines. Please see manuscript outline for more details and tasks.
+
 
 ### `files`
 
