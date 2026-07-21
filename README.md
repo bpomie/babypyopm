@@ -83,12 +83,12 @@ NOTE: Be sure to specify your working directory in each script.
 
 2. Files **generated during/after recording with manual experimenter input**
 (path: '~/data/sub-{nnn}/')
--	`sub-{nnn}_badchannels.tsv`
--	`sub-{nnn}_sensor_locations.tsv`
--	`sub-{nnn}_{sub-}_event_dict.json`
--	`sub-{nnn}_referencechannels_location.json`
+  -	`sub-{nnn}_badchannels.tsv`
+  -	`sub-{nnn}_sensor_locations.tsv`
+  -	`sub-{nnn}_{sub-}_event_dict.json`
+  -	`sub-{nnn}_referencechannels_location.json`
 
-3. Script 000_simple_explore_layout_renamed_channels.py
+3. Script '000_simple_explore_layout_renamed_channels.py'
 + Input (path: ~/data/sub-{nnn}/raw_recording/)
   -	`sub-{nnn}_channels.tsv`
   -	`sub-{nnn}_raw.fif`
