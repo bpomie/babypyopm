@@ -19,18 +19,6 @@ The data, raw and processed, are available on the project OSF repository: https:
 + They are stored in seperate .tsv files for each participant, path: /data/sub-{subj}/📄 sub-{subj}_referencechannels_location.json
 + Script `000_simple_explore_layout.py` adds sensor locations to the **_raw.fif** files (see below and manuscript outline for more details).
 
-# Scripts
-
-NOTE: Be sure to specify your working directory in each script.
-
-## `simple_explore` scripts
-
-`simple_explore` scripts are walkthroughs on single participants and use base MNE functions. Please see manuscript outline for more details and tasks.
-
-## `group` scripts
-
-`group` scripts loop through all subjects in the data folder. They use utils_* pipelines. Please see manuscript outline for more details and tasks.
-
 # Current project structure
 
 ```text
@@ -72,6 +60,52 @@ NOTE: Be sure to specify your working directory in each script.
 ├── 📝 utils_preprocessing_analysis.py
 └── {...}
 ```
+# Scripts and files
+
+NOTE: Be sure to specify your working directory in each script.
+
+## `scripts` 
+
+:large_blue_circle: `simple_explore` scripts are walkthroughs on single participants and use base MNE functions. Please see manuscript outline for more details and tasks.
+
+:large_blue_circle: `group` scripts loop through all subjects in the data folder. They use utils_* pipelines. Please see manuscript outline for more details and tasks.
+
+- `000_simple_explore_layout_renamed_channels.py`
+- `001_simple_explore_psd_channels_noise.py`
+ -002_group_filtering
+- `100_simple_explore_task.py`
+- 
+
+### `group` scripts
+
+
+
+### `files`
+
+1. Files **generated automatically during recording**
+(path: '~/data/sub-{nnn}/raw_recording/')
+-	'sub-{nnn}_channels.tsv'
+-	'sub-{nnn}_raw.fif'
+
+2. Files **generated during/after recording with manual experimenter input**
+(path: '~/data/sub-{nnn}/')
+  -	`sub-{nnn}_badchannels.tsv`
+  -	`sub-{nnn}_sensor_locations.tsv`
+  -	`sub-{nnn}_{sub-}_event_dict.json`
+  -	`sub-{nnn}_referencechannels_location.json`
+
+3. Script '000_simple_explore_layout_renamed_channels.py'
++ Input (path: ~/data/sub-{nnn}/raw_recording/)
+  -	`sub-{nnn}_channels.tsv`
+  -	`sub-{nnn}_raw.fif`
++ Outputs
+(path: ~/data/sub-{nnn}/ raw_rotated_sensorlocations/)
+  -	`sub-{nnn}_upright_wsensorlocations_raw.fif`
+(path: ~/montages/)
+
+
+
+
 ## `montages`
 contains image files of sensor motanges: 
   + 📄 `*.png` 2D sensor layout plots
