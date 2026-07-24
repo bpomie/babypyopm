@@ -1,10 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Time-Frequency Analysis Script - Group Analysis
-Based on single participant TFR analysis
-
-@author: b.pomiechowska@bham.ac.uk
+Time-Frequency Analysis Script 
 """
 
 import numpy as np
@@ -49,6 +46,9 @@ root_data_path = '/Users/a.pesquita@bham.ac.uk/Documents/GitHub/babypyopm/Untitl
 
 # List all subjects in the data folder
 path_data = os.path.join(root_data_path, 'data')
+# preproc_folder='processed_filtered'
+preproc_folder='processed_1_filter'
+preproc_naming='_file-oddballTones_filtered_01_40.fif'
 subjects = [f for f in os.listdir(path_data) if os.path.isdir(os.path.join(path_data, f)) and f.startswith('sub-')]
 print(f"Found subjects: {subjects}")
 
@@ -60,7 +60,7 @@ print(f"Found subjects: {subjects}")
 # =============================================================================
 
 # Results paths
-path_results_tfr = os.path.join(root_data_path, 'results', 'tfr_analysis')
+path_results_tfr = os.path.join(root_data_path, 'results', 'tfr_analysis', preproc_folder)
 path_results_individual = os.path.join(path_results_tfr, 'individual')
 path_results_group = os.path.join(path_results_tfr, 'group_average')
 
@@ -91,7 +91,8 @@ for subj in subjects:
     print(f"\n=== Processing {subj} ===")
     
     # Paths for current subject
-    path_task_data_raw = os.path.join(path_data, subj, 'raw_rotated_sensorlocations', f"{subj}_file-oddballTones_upright_wsensorlocations_raw.fif")
+    fif_filename=subj + preproc_naming
+    path_task_data_raw = os.path.join(path_data, subj, preproc_folder, fif_filename)
     path_bad_channels = os.path.join(path_data, subj, f"{subj}_badchannels.tsv")
     path_event_dictionary = os.path.join(path_data, subj, f"{subj}_event_dict.json")
     
@@ -216,7 +217,7 @@ for subj in subjects:
         fig_facecolor='w',
         font_color='k',
         title=f'{subj} - Multitaper TFR - 10-40Hz, -0.1 to 0.5s, baseline -0.1 to 0s',
-        show=False)
+        show=True)
     
     # Save multitaper plot
     filename1 = f"{subj}_tfr_multitaper_10-40Hz_-0.1-0.5s.png"
@@ -233,7 +234,7 @@ for subj in subjects:
         fig_facecolor='w',
         font_color='k',
         title=f'{subj} - Morlet TFR - 10-40Hz, -0.1 to 0.5s, baseline -0.1 to 0s',
-        show=False)
+        show=True)
     
     # Save morlet plot
     filename2 = f"{subj}_tfr_morlet_10-40Hz_-0.1-0.5s.png"
@@ -256,7 +257,7 @@ for subj in subjects:
         fig_facecolor='w',
         font_color='k',
         title=f'Multitaper',
-        show=False)
+        show=True)
     
     fig_temp2 = tfr_morlet.plot_topo(
         tmin=-0.1, tmax=0.5, 
@@ -266,7 +267,7 @@ for subj in subjects:
         fig_facecolor='w',
         font_color='k',
         title=f'Morlet',
-        show=False)
+        show=True)
     
     plt.close(fig_temp1)
     plt.close(fig_temp2)
@@ -315,7 +316,7 @@ else:
         fig_facecolor='w',
         font_color='k',
         title=f'Group Average (N={len(all_tfr_multitaper)}) - Multitaper TFR - 10-40Hz, -0.1 to 0.5s',
-        show=False)
+        show=True)
     
     # Save group multitaper
     group_filename1 = f"group_average_N{len(all_tfr_multitaper)}_multitaper_10-40Hz.png"
@@ -332,7 +333,7 @@ else:
         fig_facecolor='w',
         font_color='k',
         title=f'Group Average (N={len(all_tfr_morlet)}) - Morlet TFR - 10-40Hz, -0.1 to 0.5s',
-        show=False)
+        show=True)
     
     # Save group morlet
     group_filename2 = f"group_average_N{len(all_tfr_morlet)}_morlet_10-40Hz.png"

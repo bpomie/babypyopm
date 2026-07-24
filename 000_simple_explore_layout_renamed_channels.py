@@ -1,403 +1,557 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
+""" 000_simple_explore_layout_renamed_channels.py
+    Script for handling sensor layout operations in OPM data.
+
+
+    Create and apply sensor montages for OPM recordings from a CSV sensor-location file.
+
+    This script reads a raw FIF file and a sensor-location CSV, updates sensor
+    positions and orientation vectors in the MNE Raw object, optionally applies
+    coordinate-system rotations, renames channels to slot-based labels, and builds
+    an MNE montage for visualization and downstream analysis.
+
+    The script is designed to work with any helmet layout provided as a CSV
+    containing sensor positions (X, Y, Z) and orientation vectors
+    (x_i...z_k), including infant, adult, smart-helmet, and custom OPM layouts.
+
+    Main features
+    -------------
+    - Load sensor geometry from CSV
+    - Update sensor positions and orientation vectors in raw.info
+    - Handle missing or unmatched sensors
+    - Convert coordinates from mm to m
+    - Optional X/Y/Z-axis rotation transforms
+    - Rename channels using slot-based naming conventions
+    - Create and apply an MNE montage
+    - Visualize 2D and 3D sensor layouts
+    - Save a new FIF containing the updated montage information
+
+        -----
+        Authors:
+        Anna Kowalczyk <a.u.kowalczyk@bham.ac.uk>
+        Ana Pesquita <a.pesquita@aston.ac.uk>
+        Barbara Pomiechowska <b.pomiechowska@bham.ac.uk>
+
 """
-Created on Fri Jul 25 21:25:52 2025
-
-@author: b.pomiechowska@bham.ac.uk
-"""
-
-import numpy as np
-np.alltrue = np.all
-import matplotlib 
-matplotlib.use('Qt5Agg')  # Set the backend to Qt5Agg
-
-import matplotlib.pyplot as plt
-import mne
 import os
-import pandas as pd
-import json
+import re
 import glob
+import mne
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+
 
 # =============================================================================
-# SELECT PARTICIPANT
+# USER SETTINGS
 # =============================================================================
 
-# Enter which participant you would like to explore
 subj = 'sub-102'
+task = 'oddballTones'
+
+# Path to your project folder (contains 'data/' and 'montages/')
+root_data_path = '/Users/a.pesquita@bham.ac.uk/Documents/GitHub/babypyopm/Untitled'
+
+# Rotation options:
+# None
+# "z180"
+# "x180"
+# "y180"
+
+#ROTATION = None
+ROTATION = "z180"
 # =============================================================================
-# INDICATE YOUR PATH
+# ANONYMISATION
 # =============================================================================
 
-# Inser the path to your project folder
-root_data_path = '/Users/b.pomiechowska@bham.ac.uk/Documents/GitHub/babypyopm/'
-#root_data_path = '/Users/a.pesquita@bham.ac.uk/Documents/GitHub/babypyopm/Untitled'
+ANONYMISE = True
 
 # =============================================================================
 # PATHS
 # =============================================================================
 
-path_data  = os.path.join(root_data_path,'data')
-path_montages  = os.path.join(root_data_path,'montages')
+path_data = os.path.join(root_data_path, 'data')
+path_montages = os.path.join(root_data_path, 'montages')
+
+os.makedirs(path_montages, exist_ok=True)
+os.makedirs(
+    os.path.join(path_data, subj, 'raw_rotated_sensorlocations'),
+    exist_ok=True
+)
 
 # Path task
-match_task = os.path.join(path_data,subj,'raw_recording',f"*_{subj}_file-oddballTones_raw.fif")
+match_task = os.path.join(
+    path_data, subj, 'raw_recording',
+    f"*_{subj}_file-{task}_raw.fif"
+)
+
 files_task = glob.glob(match_task)
 print(files_task)
+
+if not files_task:
+    raise FileNotFoundError(f"No task file matched: {match_task}")
+
 path_task_data_raw = files_task[0]
-save_task = os.path.join(path_data,subj,'raw_rotated_sensorlocations',f"{subj}_file-oddballTones_upright_wsensorlocations_raw.fif")
+
+save_task = os.path.join(
+    path_data, subj, 'raw_rotated_sensorlocations',
+    f"{subj}_file-{task}_upright_wsensorlocations_raw.fif"
+)
 
 # Path emptyroom
-match_emptyroom = os.path.join(path_data,subj,'raw_recording',f"*_{subj}_file-emptyroom_raw.fif")
-files_emptyroom = glob.glob(match_emptyroom)
-path_emptyroom_data_raw = files_emptyroom[0]
-save_emptyroom = os.path.join(path_data,subj,'raw_rotated_sensorlocations',f"{subj}_file-emptyroom_upright_wsensorlocations_raw.fif")
+match_emptyroom = os.path.join(
+    path_data, subj, 'raw_recording',
+    f"*_{subj}_file-emptyroom_raw.fif"
+)
 
+files_emptyroom = glob.glob(match_emptyroom)
+print(files_emptyroom)
+
+if not files_emptyroom:
+    raise FileNotFoundError(f"No emptyroom file matched: {match_emptyroom}")
+
+path_emptyroom_data_raw = files_emptyroom[0]
+
+save_emptyroom = os.path.join(
+    path_data, subj, 'raw_rotated_sensorlocations',
+    f"{subj}_file-emptyroom_upright_wsensorlocations_raw.fif"
+)
 
 # Path sensor locations
-sensor_locations_path = os.path.join(path_data,subj,f"{subj}_sensor_locations.csv") 
-
-# Path reference sensors
-reference_sensors_locations_path = os.path.join(path_data,subj,f"{subj}_referencechannels_location.json")
+layout_file = os.path.join(
+    path_data, subj, f"{subj}_sensor_locations.csv"
+)
 
 # PRINT PATHS
-print("Task data raw FIF:", path_task_data_raw)
+print("Task data raw FIF  :", path_task_data_raw)
 print("Empty room data FIF:", path_emptyroom_data_raw)
-print("Sensor locations CSV:", sensor_locations_path)
-print("Reference sensors JSON:", reference_sensors_locations_path)
+print("Sensor locations CSV:", layout_file)
+
+# Recordings to process: (input fif, output fif, tag used in plot filenames)
+recordings = [
+    (path_task_data_raw, save_task, task),
+    (path_emptyroom_data_raw, save_emptyroom, 'emptyroom'),
+]
 
 # =============================================================================
-# LOAD DATA
+# LOAD CSV (shared by both recordings)
 # =============================================================================
 
-raw_task = mne.io.read_raw_fif(path_task_data_raw, preload=True)
-raw_emptyroom = mne.io.read_raw_fif(path_emptyroom_data_raw, preload=True)
+print("Loading CSV...")
+layout = pd.read_csv(layout_file)
 
-# =============================================================================
-# EXPLORE CHANNELS
-# =============================================================================
+layout = layout.dropna(subset=["channel_name"])
 
-# Extract channel names 
-channel_list_task = raw_task.ch_names
-channel_list_empty = raw_emptyroom.ch_names
-
-print(channel_list_task)
-print(channel_list_empty)
-
-# PRINT task and emptyroom channels side by side
-print("Task Channels      | Emptyroom Channels")
-print("-------------------|--------------------")
-for task_ch, empty_ch in zip(channel_list_task, channel_list_empty):
-    print(f"{task_ch:<10} | {empty_ch}")
- 
-# ! NOTE: 
-# Infant helmet channel format: s12_bz 
-# Smart helmet channel format: R114_bz-s66
-# Stimulus channel: di32  
- 
-# =============================================================================
-# ASSIGN REFERENCE CHANNELS
-# =============================================================================
-
-print(raw_task.info)
-print(raw_emptyroom.info)
-
-# PART 1: Assign reference channels based on the smart helmet 
-# i.e. assign smart channels, if any recorded, to be reference sensors
-
-# Store smart channels detected in the empty room recording
-list_smart_channels = [ch for ch in channel_list_empty if ch.startswith(('R', 'L'))]
-
-# Set channel type to 'ref_meg' 
-# for all channels located in the smart helmet across task and empty room recordings
-
-if len(list_smart_channels) > 0:
-    
-    # Find matching sensors in the task recording and store their names
-    matches = []
-    for smart_ch in list_smart_channels:
-        sensor_id = smart_ch.split('-')[-1] + "_bz"  # e.g. "s69_bz"
-        if sensor_id in channel_list_task:
-            matches.append((smart_ch, sensor_id))
-
-    matching_sensor_ids = [m[1] for m in matches]
-    print(matching_sensor_ids)
-   
-    # Empty room: build mapping of smart helmet channels name to new type (i.e. 'ref_meg')
-    type_map = {ch: 'ref_meg' for ch in list_smart_channels}
-    raw_emptyroom.set_channel_types(type_map) # Set channel type
-    # Task: build mapping of smart helmet channels name to new type (i.e. 'ref_meg')
-    type_map_task = {ch: 'ref_meg' for ch in matching_sensor_ids}
-    raw_task.set_channel_types(type_map_task) # Set channel type
-
-print(raw_task.info) 
-print(raw_emptyroom.info)
-
-# PART 2: Assign reference channels based on the JSON recording
-
-if os.path.isfile(reference_sensors_locations_path):
-    print("There is a _referencechannels_location JSON file.")
-    # Read in the '_referencechannels_location.json' file
-    with open(reference_sensors_locations_path, 'r') as f:
-        reference_channels_info = json.load(f)
-    # Store channel names 
-    channel_list_json = [name for name, info in reference_channels_info.items() if info['position'] == [0, 0, 0]]
-    print(channel_list_json)
-    # Build mapping of smart helmet channels name to new type (i.e. 'ref_meg')
-    type_map = {ch: 'ref_meg' for ch in channel_list_json}
-    raw_emptyroom.set_channel_types(type_map)
-    raw_task.set_channel_types(type_map)
-
-print(raw_task.info) 
-print(raw_emptyroom.info)
-
-# =============================================================================
-# ADD SENSOR LOCATIONS  
-# =============================================================================
-    
-sensor_locations = pd.read_csv(sensor_locations_path)
-sensor_locations = sensor_locations.dropna(subset=['channel_name'])
-
-# Create the new column 'ch_name' that can be used for averaging over the same slots accross participants
-sensor_locations['slot_name'] = (
-    sensor_locations['side'].str[0] +  # First character of 'side'
-    sensor_locations['slot'].astype(str).str.zfill(2)   # Slot with leading zero
+layout["channel_name"] = (
+    layout["channel_name"]
+    .astype(str)
+    .str.strip()
 )
-print(sensor_locations)
 
-channel_names_csv = sensor_locations['channel_name'].tolist()
-
-print(channel_names_csv)
-len(channel_list_task)
-len(channel_names_csv)
-
-df = sensor_locations
-
-"""
-Notes:
-    channel_info = raw.info['chs'][0]
-    channel_info['ch_name']: channel name (e.g. 's24_bz')
-    channel_info['kind']: channel type (e.g. FIFFV_MEG_CH = 1 for MEG)
-    channel_info['loc'][:3]: 3D position (X, Y, Z)
-    
-    ch['loc'][3:6]: X-axis orientation vector
-    ch['loc'][6:9]: Y-axis orientation vector
-    ch['loc'][9:12]: Z-axis orientation vector
-"""
-
-for ch in raw_task.info['chs']:
-    ch_name = ch['ch_name']
-    print(ch)
-    print(ch_name)
-
-    # Store and print old position
-    old_pos = ch['loc'][:3].copy() # recording_loc
-
-    if ch_name in df['channel_name'].values:
-        # Update the position based on CSV data
-        pos = df[df['channel_name'] == ch_name][['X', 'Y', 'Z', 'x_i',
-                                                 'x_j', 'x_k', 'y_i', 'y_j', 'y_k', 'z_i', 'z_j', 'z_k']].values[0]
-        
-        ch['loc'][:] = pos
-        
-for ch in raw_emptyroom.info['chs']:
-    ch_name = ch['ch_name']
-    print(ch)
-    print(ch_name)
-
-    if ch_name in df['channel_name'].values:
-        # Update the position based on CSV data
-        pos = df[df['channel_name'] == ch_name][['X', 'Y', 'Z', 'x_i',
-                                                 'x_j', 'x_k', 'y_i', 'y_j', 'y_k', 'z_i', 'z_j', 'z_k']].values[0]
-        
-        ch['loc'][:] = pos
-
-# RENAME SENSORS TO INCLUDE SLOT as ch_name
-raw_task.annotations.custom_info = {'layout_info': sensor_locations}
-
-
-for ch in raw_task.info['chs']:
-    ch_name = ch['ch_name']
-    index = raw_task.info['ch_names'].index(ch_name)
-    print(ch_name)
-    print(index)
-    
-    if ch_name in df['channel_name'].values:
-        new_ch_name= df[df['channel_name'] == ch_name]['slot_name'].values[0]
-        print(ch_name)
-        print(new_ch_name)
-        ch['ch_name']=new_ch_name
-        # ch['sns_name']=ch_name
-        raw_task.info['ch_names'][index]=new_ch_name
-        
-
-    
-# PREVIEW SENSOR PLOTS to see what we're at
-mne.viz.plot_sensors(raw_task.info, show_names=True, kind='3d')
-mne.viz.plot_sensors(raw_task.info, show_names=True, kind='topomap')
-
-mne.viz.plot_sensors(raw_emptyroom.info, show_names=True, kind='3d')
-mne.viz.plot_sensors(raw_emptyroom.info, show_names=True, kind='topomap')
 
 # =============================================================================
-# CONVERT FROM MMs to Ms
-# =============================================================================
-    
-for ch in raw_task.info['chs']:
-    if ch['kind'] == mne.io.constants.FIFF.FIFFV_MEG_CH:
-        ch['loc'][:3] = ch['loc'][:3] / 1000  # convert mm → m
-        
-for ch in raw_emptyroom.info['chs']:
-    if ch['kind'] == mne.io.constants.FIFF.FIFFV_MEG_CH:
-        ch['loc'][:3] = ch['loc'][:3] / 1000  # convert mm → m        
-
-# PREVIEW SENSOR PLOTS to see what we're at
-
-mne.viz.plot_sensors(raw_task.info, show_names=True, kind='3d')
-mne.viz.plot_sensors(raw_task.info, show_names=True, kind='topomap')
-
-mne.viz.plot_sensors(raw_emptyroom.info, show_names=True, kind='3d')
-mne.viz.plot_sensors(raw_emptyroom.info, show_names=True, kind='topomap')
-
-# =============================================================================
-# ROTATE CHANNELS 180 DEGREES AROUND Z AXIS
+# PROCESS EACH RECORDING (task, then emptyroom)
 # =============================================================================
 
-# Equivalent 180° Z-axis rotation matrix
-rotation_matrix = np.array([
-    [-1,  0,  0],
-    [ 0, -1,  0],
-    [ 0,  0,  1]
-])
+for fif_file, output_fif, tag in recordings:
 
-# Apply rotation to all MEG sensor positions
-for ch in raw_task.info['chs']:
-    if ch['kind'] == mne.io.constants.FIFF.FIFFV_MEG_CH:
-        loc_p = ch['loc'][:3]  # Extract (x, y, z) position
-        loc_x_ijk = ch['loc'][3:6]  # Extract (x_i, x_j, x_k) 
-        loc_y_ijk = ch['loc'][6:9]  # Extract (y_i, y_j, y_k) 
-        loc_z_ijk = ch['loc'][9:12]  # Extract (z_i, z_j, z_k) 
-        print(ch['loc'])
-  
-        #TO DO: Improve code elegance here. Can be done in a loop with location labels (e.g. x_j) assigned to dictionairy to improve robustness 
-        rotated_loc_p = np.dot(loc_p, rotation_matrix)
-        ch['loc'][:3] = rotated_loc_p
-        
-        rotated_loc_x_ijk = np.dot(loc_x_ijk, rotation_matrix)
-        ch['loc'][3:6] = rotated_loc_x_ijk
-        
-        rotated_loc_y_ijk = np.dot(loc_y_ijk, rotation_matrix)
-        ch['loc'][6:9] = rotated_loc_y_ijk
-        
-        rotated_loc_z_ijk = np.dot(loc_z_ijk, rotation_matrix)
-        ch['loc'][9:12] = rotated_loc_z_ijk
-             
-        
-# Apply rotation to all MEG sensor positions
-for ch in raw_emptyroom.info['chs']:
-    if ch['kind'] == mne.io.constants.FIFF.FIFFV_MEG_CH:
-        loc_p = ch['loc'][:3]  # Extract (x, y, z) position
-        loc_x_ijk = ch['loc'][3:6]  # Extract (x_i, x_j, x_k) 
-        loc_y_ijk = ch['loc'][6:9]  # Extract (y_i, y_j, y_k) 
-        loc_z_ijk = ch['loc'][9:12]  # Extract (z_i, z_j, z_k) 
-        print(ch['loc'])
+    print("\n" + "#" * 60)
+    print(f"RECORDING: {tag}")
+    print("#" * 60)
 
-         #TO DO: Improve code elegance here. Can be done in a loop with location labels (e.g. x_j) assigned to dictionairy to improve robustness
-        rotated_loc_p = np.dot(loc_p, rotation_matrix)
-        ch['loc'][:3] = rotated_loc_p
-        
-        rotated_loc_x_ijk = np.dot(loc_x_ijk, rotation_matrix)
-        ch['loc'][3:6] = rotated_loc_x_ijk
-        
-        rotated_loc_y_ijk = np.dot(loc_y_ijk, rotation_matrix)
-        ch['loc'][6:9] = rotated_loc_y_ijk
-        
-        rotated_loc_z_ijk = np.dot(loc_z_ijk, rotation_matrix)
-        ch['loc'][9:12] = rotated_loc_z_ijk
-             
-# PREVIEW SENSOR PLOTS to see what we're at
+    # =============================================================================
+    # LOAD
+    # =============================================================================
 
-mne.viz.plot_sensors(raw_task.info, show_names=True, kind='3d')
-mne.viz.plot_sensors(raw_task.info, show_names=True, kind='topomap')
+    print("Loading FIF...")
+    raw = mne.io.read_raw_fif(
+        fif_file,
+        preload=True
+    )
 
-mne.viz.plot_sensors(raw_emptyroom.info, show_names=True, kind='3d')
-mne.viz.plot_sensors(raw_emptyroom.info, show_names=True, kind='topomap')
+    # =============================================================================
+    # SENSOR MATCHING
+    # =============================================================================
 
-# =============================================================================
-# PLOT 3D MONTAGE WITH SENSOR ORIENTATIONS (use task data only for the example)
-# =============================================================================
+    csv_channels = set(layout["channel_name"])
 
-fig = mne.viz.plot_sensors(raw_task.info, kind='3d', show_names=False)
-ax = fig.gca()  # get 3D axis
+    fif_channels = set(raw.ch_names)
 
-positions = []
-x_orient = []
-y_orient = []
-z_orient = []
+    missing_from_csv = []
+    matched = 0
 
-for ch in raw_task.info['chs']:
-    if ch['kind'] == mne.io.constants.FIFF.FIFFV_MEG_CH:
-        loc = ch['loc']
-        positions.append(loc[:3])
-        x_orient.append(loc[3:6])
-        y_orient.append(loc[6:9])
-        z_orient.append(loc[9:12])
+    # =============================================================================
+    # UPDATE LOCATIONS
+    # =============================================================================
 
-positions = np.array(positions)
-x_orient = np.array(x_orient)
-y_orient = np.array(y_orient)
-z_orient = np.array(z_orient)
+    for ch in raw.info["chs"]:
 
-# Quivers for each axis
-scale = 0.02
-ax.quiver(positions[:,0], positions[:,1], positions[:,2],
-           x_orient[:,0], x_orient[:,1], x_orient[:,2],
-           length=scale, color='red', normalize=True, label='X-axis')
+        ch_name = ch["ch_name"]
 
-ax.quiver(positions[:,0], positions[:,1], positions[:,2],
-           y_orient[:,0], y_orient[:,1], y_orient[:,2],
-           length=scale, color='green', normalize=True, label='Y-axis')
+        if ch_name not in csv_channels:
 
-ax.quiver(positions[:,0], positions[:,1], positions[:,2],
-          z_orient[:,0], z_orient[:,1], z_orient[:,2],
-          length=scale, color='blue', normalize=True, label='Z-axis')
+            ch["loc"][:12] = 0
+            missing_from_csv.append(ch_name)
 
-ax.legend()
-plt.show()
+            continue
 
-plotname = 'plot_3D_w_orientations_montage'
-name = "%s_%s" % (plotname, subj)
-savepath = os.path.join(path_montages,name)
-print(savepath)
-plt.title(subj)
-plt.savefig(savepath)
+        matched += 1
 
-# =============================================================================
-# SAVE MONTAGES (2D, 3D) [note: 3D w orientations was saved above]
-# =============================================================================
+        row = layout.loc[
+            layout["channel_name"] == ch_name
+        ].iloc[0]
 
-mne.viz.plot_sensors(raw_task.info, show_names=True)
-plotname = 'plot_montage'
-name = "%s_%s" % (plotname, subj)
-savepath = os.path.join(path_montages,name)
-print(savepath)
-plt.title(subj)
-plt.savefig(savepath)
+        vals = row[
+            [
+                "X", "Y", "Z",
+                "x_i", "x_j", "x_k",
+                "y_i", "y_j", "y_k",
+                "z_i", "z_j", "z_k"
+            ]
+        ].to_numpy(dtype=float)
 
-mne.viz.plot_sensors(raw_task.info, show_names=True, kind = '3d')
-plotname = 'plot_3D_montage'
-name = "%s_%s" % (plotname, subj)
-savepath = os.path.join(path_montages,name)
-print(savepath)
-plt.title(subj)
-plt.savefig(savepath)
+        ch["loc"][:12] = vals
 
-# =============================================================================
-# SAVE FIF FILES
-# =============================================================================
+    missing_from_fif = sorted(
+        csv_channels - fif_channels
+    )
 
-raw_task.save(save_task, overwrite=True)
-raw_emptyroom.save(save_emptyroom, overwrite=True)
-     
-# Print confirmation message with both filename and path
-print(f"\nFile '{save_task}' successfully saved to:\n{save_task}.")
-print(f"\nFile '{save_emptyroom}' successfully saved to:\n{save_emptyroom}.")
+    # =============================================================================
+    # REPORT MATCHING
+    # =============================================================================
+
+    print("\n" + "=" * 60)
+    print("SENSOR MATCHING SUMMARY")
+    print("=" * 60)
+
+    print(f"Channels in FIF : {len(fif_channels)}")
+    print(f"Channels in CSV : {len(csv_channels)}")
+    print(f"Matched         : {matched}")
+
+    print(
+        f"\nMissing from CSV ({len(missing_from_csv)}):"
+    )
+
+    for ch in missing_from_csv:
+        print("  ", ch)
+
+    print(
+        f"\nMissing from FIF ({len(missing_from_fif)}):"
+    )
+
+    for ch in missing_from_fif:
+        print("  ", ch)
+
+    # =============================================================================
+    # MM -> M
+    # =============================================================================
+
+    for ch in raw.info["chs"]:
+
+        if (
+            ch["kind"]
+            == mne.io.constants.FIFF.FIFFV_MEG_CH
+        ):
+
+            ch["loc"][:3] /= 1000
+
+    # =============================================================================
+    # ROTATIONS
+    # =============================================================================
+
+    ROTATIONS = {
+
+        None: np.eye(3),
+
+        "z180": np.array([
+            [-1,  0,  0],
+            [ 0, -1,  0],
+            [ 0,  0,  1]
+        ]),
+
+        "x180": np.array([
+            [ 1,  0,  0],
+            [ 0, -1,  0],
+            [ 0,  0, -1]
+        ]),
+
+        "y180": np.array([
+            [-1,  0,  0],
+            [ 0,  1,  0],
+            [ 0,  0, -1]
+        ])
+    }
+
+    R = ROTATIONS[ROTATION]
+
+    print(f"\nApplying rotation: {ROTATION}")
+
+    for ch in raw.info["chs"]:
+
+        if (
+            ch["kind"]
+            != mne.io.constants.FIFF.FIFFV_MEG_CH
+        ):
+            continue
+
+        loc = ch["loc"]
+
+        loc[:3]   = R @ loc[:3]
+        loc[3:6]  = R @ loc[3:6]
+        loc[6:9]  = R @ loc[6:9]
+        loc[9:12] = R @ loc[9:12]
+
+    # =============================================================================
+    # RENAME CHANNELS
+    # side + slot + sensor direction
+    # =============================================================================
+
+    side_col = None
+
+    for candidate in ["side", "channel_side", "helmet_side"]:
+
+        if candidate in layout.columns:
+            side_col = candidate
+            break
+
+    print(f"Side column: {side_col}")
+
+    if side_col is None:
+        raise ValueError(
+            "Could not find side column. Expected one of: "
+            "side, channel_side, helmet_side"
+        )
+
+    rename_dict = {}
+
+    for _, row in layout.iterrows():
+
+        old_name = str(
+            row["channel_name"]
+        ).strip()
+
+        if old_name not in raw.ch_names:
+            continue
+
+        side = str(
+            row[side_col]
+        ).strip()
+
+        side_letter = side[0].upper()
+
+        slot = str(
+            row["slot"]
+        ).strip()
+
+        # remove leading L/R from slot if already present
+        # examples:
+        # L11 -> 11
+        # R_01 -> 01
+        # Left side + L11 => L11 not LL11
+
+        slot = re.sub(
+            r"^[LRlr][_-]?",
+            "",
+            slot
+        )
+
+        match = re.search(
+            r'_(bx|by|bz)$',
+            old_name,
+            re.IGNORECASE
+        )
+
+        if match:
+            direction = match.group(1).lower()
+        else:
+            direction = "bz"
+
+        # new_name = f"{side_letter}{slot}_{direction}" Changed to not include direction so it later matches the naming convention in the bad channel files
+        new_name = f"{side_letter}{slot}"
+
+        rename_dict[old_name] = new_name
+
+
+    print("\nRename preview:")
+
+    for old_name, new_name in list(rename_dict.items())[:20]:
+        print(f"{old_name} -> {new_name}")
+
+
+    # Check for duplicates before renaming
+    new_names = list(rename_dict.values())
+
+    duplicates = pd.Series(new_names)
+    duplicates = duplicates[duplicates.duplicated()]
+
+    if len(duplicates):
+
+        print("\nDuplicate names found:")
+
+        for d in duplicates.unique():
+            print(d)
+
+        raise ValueError(
+            "Renaming would create duplicate channel names."
+        )
+
+    raw.rename_channels(rename_dict)
+
+    print("\nExample renamed channels:")
+
+    for ch in raw.ch_names[:10]:
+        print(ch)
+
+    # =============================================================================
+    # BUILD MONTAGE
+    # =============================================================================
+
+    ch_pos = {
+
+        ch["ch_name"]: ch["loc"][:3]
+
+        for ch in raw.info["chs"]
+
+        if not np.allclose(
+            ch["loc"][:3],
+            0
+        )
+    }
+
+    montage = mne.channels.make_dig_montage(
+        ch_pos=ch_pos,
+        coord_frame="head"
+    )
+
+    raw.set_montage(
+        montage,
+        on_missing="ignore"
+    )
+
+    print(
+        f"\nMontage created with "
+        f"{len(ch_pos)} channels."
+    )
+
+    # =============================================================================
+    # ANONYMISE
+    # =============================================================================
+
+    if ANONYMISE:
+
+        print("\nAnonymising recording...")
+
+
+        raw.set_meas_date(None)
+
+        print("Done.")
+
+    # =============================================================================
+    # SAVE NEW FIF
+    # =============================================================================
+
+    raw.save(
+        output_fif,
+        overwrite=True
+    )
+
+    print(
+        f"\nSaved montage FIF:\n"
+        f"{output_fif}"
+    )
+
+    # =============================================================================
+    # CHECK SENSOR LAYOUT
+    # =============================================================================
+
+    raw.plot_sensors(
+        kind="topomap",
+        show_names=True
+    )
+
+    plt.title(f"{subj} {tag}")
+    plt.savefig(
+        os.path.join(path_montages, f"plot_montage_{tag}_{subj}")
+    )
+
+    raw.plot_sensors(
+        kind="3d",
+        show_names=True
+    )
+
+    plt.title(f"{subj} {tag}")
+    plt.savefig(
+        os.path.join(path_montages, f"plot_3D_montage_{tag}_{subj}")
+    )
+
+    # =============================================================================
+    # 3D MONTAGE WITH SENSOR ORIENTATIONS
+    # =============================================================================
+
+    fig = raw.plot_sensors(
+        kind="3d",
+        show_names=False
+    )
+
+    ax = fig.gca()
+
+    positions = []
+    x_orient = []
+    y_orient = []
+    z_orient = []
+
+    for ch in raw.info["chs"]:
+
+        if (
+            ch["kind"]
+            == mne.io.constants.FIFF.FIFFV_MEG_CH
+        ):
+
+            loc = ch["loc"]
+
+            positions.append(loc[:3])
+            x_orient.append(loc[3:6])
+            y_orient.append(loc[6:9])
+            z_orient.append(loc[9:12])
+
+    positions = np.array(positions)
+    x_orient = np.array(x_orient)
+    y_orient = np.array(y_orient)
+    z_orient = np.array(z_orient)
+
+    scale = 0.02
+
+    ax.quiver(positions[:, 0], positions[:, 1], positions[:, 2],
+              x_orient[:, 0], x_orient[:, 1], x_orient[:, 2],
+              length=scale, color='red', normalize=True, label='X-axis')
+
+    ax.quiver(positions[:, 0], positions[:, 1], positions[:, 2],
+              y_orient[:, 0], y_orient[:, 1], y_orient[:, 2],
+              length=scale, color='green', normalize=True, label='Y-axis')
+
+    ax.quiver(positions[:, 0], positions[:, 1], positions[:, 2],
+              z_orient[:, 0], z_orient[:, 1], z_orient[:, 2],
+              length=scale, color='blue', normalize=True, label='Z-axis')
+
+    ax.legend()
+
+    plt.title(f"{subj} {tag}")
+    plt.savefig(
+        os.path.join(
+            path_montages,
+            f"plot_3D_w_orientations_montage_{tag}_{subj}"
+        )
+    )
+
+    # =============================================================================
+    # PSD CHECK
+    # =============================================================================
+
+    raw.compute_psd(
+        fmax=120
+    ).plot()
+
+    plt.suptitle(f"PSD {tag}: {subj}")
+
+    plt.show()
+
+print("\nAll recordings processed.")

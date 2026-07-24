@@ -52,7 +52,7 @@ root_data_path = '/Users/a.pesquita@bham.ac.uk/Documents/GitHub/babypyopm/Untitl
 #   'freq_vs_infreq' - Frequent vs Infrequent tones
 #   'high_vs_low'    - High vs Low pitch tones
 
-DECODING_CONTRAST = 'high_vs_low'  # <-- CHANGE THIS TO SWITCH CONTRAST
+DECODING_CONTRAST = 'freq_vs_infreq'  # <-- CHANGE THIS TO SWITCH CONTRAST
 
 # Define contrast configurations
 CONTRAST_CONFIG = {
@@ -170,7 +170,7 @@ def decode_participant(subj, paths, contrast):
             events,
             event_id=event_dict,
             tmin=-0.1,
-            tmax=0.5,
+            tmax=0.6,
             baseline=None,
             detrend=1,
             reject_by_annotation=True,

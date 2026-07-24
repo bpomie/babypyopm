@@ -25,7 +25,9 @@ import os
 # =============================================================================
 
 # Inser the path to your project folder
-root_data_path = '/Users/b.pomiechowska@bham.ac.uk/Documents/GitHub/babypyopm'
+#root_data_path = '/Users/b.pomiechowska@bham.ac.uk/Documents/GitHub/babypyopm'
+root_data_path = '/Users/a.pesquita@bham.ac.uk/Documents/GitHub/babypyopm/Untitled/'
+
 
 # Construct paths
 path_data  = os.path.join(root_data_path,'data')
@@ -40,7 +42,7 @@ print(path_results_psd)
 # =============================================================================
 
 # Enter which participant you would like to explore
-subj = 'sub-106'
+subj = 'sub-101'
 
 # =============================================================================
 # PATHS
@@ -78,6 +80,7 @@ fig_emptyroom.suptitle("Empty Room PSD: " + subj)
 fig_task = rawpsd_task.plot()
 fig_task.suptitle("Task PSD: " + subj)
 
+os.makedirs(path_results_psd, exist_ok=True)
 fig_emptyroom.savefig(os.path.join(path_results_psd,subj+'_emptyroom'), dpi=300)
 fig_task.savefig(os.path.join(path_results_psd,subj+'_task'), dpi=300)
 
@@ -101,4 +104,10 @@ ax.plot(time_ds, data_ds2.T - np.mean(data_ds2, axis=1), **plot_kwargs)
 ax.grid(True)
 set_kwargs = dict(ylim=(-3000, 3000), xlim=time_ds[[0, -1]], xlabel="Time (s)", ylabel="Amplitude (pT)")
 ax.set(title="Before Filters", **set_kwargs)
+
+path_results_raw = os.path.join(root_data_path, 'results', 'raw_amplitude')
+os.makedirs(path_results_raw, exist_ok=True)
+
+fig_raw_amp.savefig(os.path.join(path_results_raw, subj + '_raw_amplitude.png'), dpi=300)
 plt.show()
+

@@ -1,0 +1,12 @@
+
+Subject: sub-105
+TFR Analysis Comparison
+-----------------------
+Frequency range: 10-40 Hz
+Time window: -0.1 to 0.5 s
+Baseline: -0.1 to 0 s
+Methods: Multitaper and Morlet
+
+Files generated:
+- sub-105_tfr_multitaper_10-40Hz_-0.1-0.5s.png
+- sub-105_tfr_morlet_10-40Hz_-0.1-0.5s.png

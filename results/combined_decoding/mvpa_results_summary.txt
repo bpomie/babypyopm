@@ -1,0 +1,23 @@
+MVPA RESULTS SUMMARY
+====================
+
+Analysis: Temporal decoding of frequent vs infrequent tones
+Method: Sliding estimator with logistic regression
+Cross-validation: 5-fold stratified
+Scoring metric: Area Under the ROC Curve (AUC)
+
+RESULTS
+-------
+Peak decoding time: 230 ms
+Peak group AUC: 0.737
+Mean AUC at peak (± SD): 0.737 ± 0.000
+
+Individual subject AUCs at peak:
+  S104: 0.737
+
+STATISTICAL NOTE
+----------------
+Given the small sample size (n=1), formal statistical inference
+is limited. However, a binomial test at group peak decoding time showed
+that 1/1 participants decoded above chance level
+(AUC > 0.5), p = 0.500.

@@ -45,7 +45,8 @@ import mne
 #output_folder = 'processed_filtered'
 
 # Inser the path to your project folder
-root_data_path = '/Users/b.pomiechowska@bham.ac.uk/Documents/GitHub/babypyopm/'
+#root_data_path = '/Users/b.pomiechowska@bham.ac.uk/Documents/GitHub/babypyopm/'
+root_data_path = '/Users/a.pesquita@bham.ac.uk/Documents/GitHub/babypyopm/Untitled/'
 
 
 # =============================================================================
