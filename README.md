@@ -85,6 +85,7 @@ NOTE: Be sure to specify your working directory in each script.
 ### list of all analysis `scrpts` and `files` generated during the analysis
 
 1. Script **`000_simple_explore_layout_renamed_channels.py`**
+
 [*function overview: to be completed*]
 + ⬇️ **Inputs**
 (path: `~/data/sub-{nnn}/raw_recording/`)
@@ -97,6 +98,7 @@ NOTE: Be sure to specify your working directory in each script.
   - [*to be completed*]
 
 2. Script **`001_simple_explore_psd_channels_noise.py`**
+
 [*function overview: to be completed*]
 + ⬇️ **Input**
 (path: `~/data/sub-{nnn}/ raw_rotated_sensorlocations/`)
@@ -109,6 +111,7 @@ NOTE: Be sure to specify your working directory in each script.
   -	`{sub}_before_filters.png`
 
 3. Script **`002_group_filtering.py`**
+
 [*function overview: to be completed*]
 + ⬇️ Input
 (path: `~/data/sub-{nnn}/raw_rotated_sensorlocations)`
