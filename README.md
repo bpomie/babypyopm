@@ -72,27 +72,7 @@ NOTE: Be sure to specify your working directory in each script.
 
 ### list of all scripts and their functions
 
-- `000_simple_explore_layout_renamed_channels.py` [*function overview: to be completed*]
-- `001_simple_explore_psd_channels_noise.py` [*function overview: to be completed*]
-- `002_group_filtering.py` [*function overview: to be completed*]
-- `003_group_ica.py` [*function overview: to be completed*]
-- `004_group_manual_inspect.py` [*function overview: to be completed*]
-- `100_simple_explore_task.py` [*function overview: to be completed*]
-- `101_simple_plot_erf_rms.py` [*function overview: to be completed*]
-- `200_explore_grand_average.py` [*function overview: to be completed*]
-- `200_explore_grand_average_figure_export.py` [*function overview: to be completed*]
-- `300_explore_tfr.py` [*function overview: to be completed*]
-- `300_simple_explore_tfr.py` [*function overview: to be completed*]
-- `300_simple_explore_tfr_ga.py` [*function overview: to be completed*]
-- `400_temporal_decoding_freq_vs_infreq.py` [*function overview: to be completed*]
-- `401_group_temporal_decoding.py` [*function overview: to be completed*]
-- `402_combined_decoding_figure.py` [*function overview: to be completed*]
-- `402_decoding_peak.py` [*function overview: to be completed*]
-- `402_group_decoding_peak.py` [*function overview: to be completed*]
-- `402a_group_decoding_compute.py` [*function overview: to be completed*]
-- `402b_group_decoding_figures.py` [*function overview: to be completed*]
-- `402c_group_decoding_patterns.py` [*function overview: to be completed*]
-- `500_group_splithalf_reliability.py` [*function overview: to be completed*]
+
 
 ## `files`
 
@@ -110,10 +90,12 @@ NOTE: Be sure to specify your working directory in each script.
   -	`sub-{nnn}_{sub-}_event_dict.json`
   -	`sub-{nnn}_referencechannels_location.json`
 
-### list of all `files` generated during the analysis
+### list of all analysis `scrpts` and `files` generated during the analysis
 
-3. Script **000_simple_explore_layout_renamed_channels.py**
-+ Input (path: ~/data/sub-{nnn}/raw_recording/)
+1. Script **`000_simple_explore_layout_renamed_channels.py`**
+[*function overview: to be completed*]
++ Input
+(path: ~/data/sub-{nnn}/raw_recording/)
   -	`sub-{nnn}_channels.tsv`
   -	`sub-{nnn}_raw.fif`
 + Outputs
@@ -122,6 +104,69 @@ NOTE: Be sure to specify your working directory in each script.
 (path: `~/montages/`)
 [*to be completed*]
 
+2. Script **001_simple_explore_psd_channels_noise.py**
+[*function overview: to be completed*]
++ Input 
+(path: ~/data/sub-{nnn}/ raw_rotated_sensorlocations/)
+  -	{name}_upright_wsensorlocations_raw.fif
++ Outputs
+(path: ~/results/psd/)
+-	{sub}_task.png
+-	{sub}_emptyroom.png
+(path: ~/results/lifts/)
+-	{sub}_before_filters.png
+
+3. Script **002_group_filtering.py**
+[*function overview: to be completed*]
++ Input
+(path: ~/data/sub-{nnn}/ raw_rotated_sensorlocations)
+  -	{name}_upright_wsensorlocations_raw.fif
++ Output
+(path: ~/data/sub-{nnn}/ processed_1_filter)
+  -	{name}_filtered_01_40.fif
+
+4. **Script 003_group_ica.py**
+[*function overview: to be completed*]
++ Input
+(path: ~/data/sub-{nnn}/ processed_1_filter)
+  -	{name}_filtered_01_40.fif
++ Outputs 
+(path: ~/data/sub-{nnn}/ processed_2_filter_ica)
+-	{name}_filtered_01_40.fif
+(path: ~/results/processed_2_filter_ica/ica/)
+-	{subj}_ICA_components.png
+-	{subj}_ICA_excluded_component_{comp}.png
+-	{subj}_ICA_sourcesA.png
+-	{subj}_ICA_sourcesB.png
+(path: ~/results/logging/)
+-	{subj}_excluded_ICA_components.tsv
+
+5. Script **004_group_manual_inspect.py**
+-	Identify bad epochs through visual inspection. 
+-	Store bad epoch numbers for later use.
++ Input (path: ~/data/sub-{nnn}/ processed_2_filter_ica)
+  -	{name}_processed_2_filter_ica.fif
++ Output (path: ~/data/sub-{nnn}/)
+  -	{name}_epochs_bad.csv
+  -	{name}_epochs_summary.csv
+
+6. `004_group_manual_inspect.py` [*function overview: to be completed*]
+7. `100_simple_explore_task.py` [*function overview: to be completed*]
+8. `101_simple_plot_erf_rms.py` [*function overview: to be completed*]
+9. 200_explore_grand_average.py` [*function overview: to be completed*]
+10. 200_explore_grand_average_figure_export.py` [*function overview: to be completed*]
+11. 300_explore_tfr.py` [*function overview: to be completed*]
+12. `300_simple_explore_tfr.py` [*function overview: to be completed*]
+13. `300_simple_explore_tfr_ga.py` [*function overview: to be completed*]
+14. `400_temporal_decoding_freq_vs_infreq.py` [*function overview: to be completed*]
+15. `401_group_temporal_decoding.py` [*function overview: to be completed*]
+16. `402_combined_decoding_figure.py` [*function overview: to be completed*]
+17. `402_decoding_peak.py` [*function overview: to be completed*]
+18. `402_group_decoding_peak.py` [*function overview: to be completed*]
+19. `402a_group_decoding_compute.py` [*function overview: to be completed*]
+20. `402b_group_decoding_figures.py` [*function overview: to be completed*]
+21. `402c_group_decoding_patterns.py` [*function overview: to be completed*]
+22. `500_group_splithalf_reliability.py` [*function overview: to be completed*]
 
 ## `montages`
 contains image files of sensor motanges: 
