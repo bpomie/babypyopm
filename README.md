@@ -86,7 +86,7 @@ NOTE: Be sure to specify your working directory in each script.
 
 1. Script **`000_simple_explore_layout_renamed_channels.py`**
 [*function overview: to be completed*]
-+ Input
++ **Input**
 (path: ~/data/sub-{nnn}/raw_recording/)
   -	`sub-{nnn}_channels.tsv`
   -	`sub-{nnn}_raw.fif`
