@@ -98,7 +98,7 @@ NOTE: Be sure to specify your working directory in each script.
 
 2. Script **`001_simple_explore_psd_channels_noise.py`**
 [*function overview: to be completed*]
-+ ⬇️**Input**
++ ⬇️ **Input**
 (path: `~/data/sub-{nnn}/ raw_rotated_sensorlocations/`)
   -	`sub-{nnn}_upright_wsensorlocations_raw.fif`
 + 🛠️ **Outputs**
@@ -110,7 +110,7 @@ NOTE: Be sure to specify your working directory in each script.
 
 3. Script **`002_group_filtering.py`**
 [*function overview: to be completed*]
-+ Input
++ ⬇️ Input
 (path: `~/data/sub-{nnn}/raw_rotated_sensorlocations)`
   -	{name}_upright_wsensorlocations_raw.fif
 + Output
@@ -119,7 +119,7 @@ NOTE: Be sure to specify your working directory in each script.
 
 4. Script **`003_group_ica.py`**
 [*function overview: to be completed*]
-+ **Input**
++ ⬇️ **Input**
 (path: `~/data/sub-{nnn}/ processed_1_filter)`
   -	`sub-{nn}_filtered_01_40.fif'
 + **Outputs** 
@@ -145,7 +145,7 @@ NOTE: Be sure to specify your working directory in each script.
 
 6. Script **`100_simple_explore_task.py`**
 [*function overview: to be completed*]
-+ **Input**
++ ⬇️ **Input**
 (path: *to be completed*)
   - *to be completed*
 + **Outputs**
@@ -154,7 +154,7 @@ NOTE: Be sure to specify your working directory in each script.
 
 7. Script **`101_simple_plot_erf_rms.py`**
 [*function overview: to be completed*]
-+ **Input**
++ ⬇️ **Input**
 (path: *to be completed*)
   - *to be completed*
 + **Outputs**
@@ -163,7 +163,7 @@ NOTE: Be sure to specify your working directory in each script.
 
 8. Script **`200_explore_grand_average.py`**
 [*function overview: to be completed*]
-+ Input
++ ⬇️ Input
 (path: *to be completed*)
   - *to be completed*
 + Outputs
@@ -172,7 +172,7 @@ NOTE: Be sure to specify your working directory in each script.
 
 9. Script **`200_explore_grand_average_figure_export.py`**
 [*function overview: to be completed*]
-+ Input
++ ⬇️ Input
 (path: *to be completed*)
   - *to be completed*
 + Outputs
@@ -181,7 +181,7 @@ NOTE: Be sure to specify your working directory in each script.
 
 10. **Script `300_explore_tfr.py`**
 [*function overview: to be completed*]
-+ Input
++ ⬇️ Input
 (path: *to be completed*)
   - *to be completed*
 + Outputs
@@ -190,7 +190,7 @@ NOTE: Be sure to specify your working directory in each script.
 
 11. **Script `300_simple_explore_tfr.py`**
 [*function overview: to be completed*]
-+ Input
++ ⬇️ Input
 (path: *to be completed*)
   - *to be completed*
 + Outputs
@@ -199,7 +199,7 @@ NOTE: Be sure to specify your working directory in each script.
 
 12. **Script `300_simple_explore_tfr_ga.py`**
 [*function overview: to be completed*]
-+ Input
++ ⬇️ Input
 (path: *to be completed*)
   - *to be completed*
 + Outputs
@@ -208,7 +208,7 @@ NOTE: Be sure to specify your working directory in each script.
 
 13. **Script `400_temporal_decoding_freq_vs_infreq.py`**
 [*function overview: to be completed*]
-+ Input
++ ⬇️ Input
 (path: *to be completed*)
   - *to be completed*
 + Outputs
@@ -217,7 +217,7 @@ NOTE: Be sure to specify your working directory in each script.
 
 14. **Script `401_group_temporal_decoding.py`**
 [*function overview: to be completed*]
-+ Input
++ ⬇️ Input
 (path: *to be completed*)
   - *to be completed*
 + Outputs
@@ -226,7 +226,7 @@ NOTE: Be sure to specify your working directory in each script.
 
 15. **Script `402_combined_decoding_figure.py`**
 [*function overview: to be completed*]
-+ Input
++ ⬇️ Input
 (path: *to be completed*)
   - *to be completed*
 + Outputs
@@ -235,7 +235,7 @@ NOTE: Be sure to specify your working directory in each script.
 
 16. **Script `402_decoding_peak.py`**
 [*function overview: to be completed*]
-+ Input
++ ⬇️ Input
 (path: *to be completed*)
   - *to be completed*
 + Outputs
@@ -244,7 +244,7 @@ NOTE: Be sure to specify your working directory in each script.
 
 17. **Script `402_group_decoding_peak.py`**
 [*function overview: to be completed*]
-+ Input
++ ⬇️ Input
 (path: *to be completed*)
   - *to be completed*
 + Outputs
@@ -253,7 +253,7 @@ NOTE: Be sure to specify your working directory in each script.
 
 18. **Script `402a_group_decoding_compute.py`**
 [*function overview: to be completed*]
-+ Input
++ ⬇️ Input
 (path: *to be completed*)
   - *to be completed*
 + Outputs
@@ -262,7 +262,7 @@ NOTE: Be sure to specify your working directory in each script.
 
 19. **Script `402b_group_decoding_figures.py`**
 [*function overview: to be completed*]
-+ Input
++ ⬇️ Input
 (path: *to be completed*)
   - *to be completed*
 + Outputs
@@ -271,7 +271,7 @@ NOTE: Be sure to specify your working directory in each script.
 
 20. **Script `402c_group_decoding_patterns.py`**
 [*function overview: to be completed*]
-+ Input
++ ⬇️ Input
 (path: *to be completed*)
   - *to be completed*
 + Outputs
@@ -280,7 +280,7 @@ NOTE: Be sure to specify your working directory in each script.
 
 21. **Script `500_group_splithalf_reliability.py`**
 [*function overview: to be completed*]
-+ Input
++ ⬇️ Input
 (path: *to be completed*)
   - *to be completed*
 + Outputs
@@ -297,48 +297,27 @@ contains image files of sensor motanges:
 
 # folder `results`
 
-### folder `psd`
+## folder `psd`
 contains power spectral density (PSD) plots: 
   + 📄 `*.png` PSD plots from **task recordings**
   + 📄 `*.png` PSD plots from **emptyroom recordings**
 
 🛠️ generated by: `001_simple_explore_psd_channels_noise.py`
 
-##### Examples
+**Examples**
 
 <img src = "results/psd/sub-102_emptyroom.png" width="2302" height="598" alt="sub-102_erf_joint_overall" />
 <img src = "results/psd/sub-102_task.png" width="2302" height="598" alt="sub-102_erf_joint_overall" />
 
-### `preprocessing_routine_1`
-contains results from preprocessing_routine_1:
-1. bandpass filter .1-40 Hz
-2. notch filter 50 Hz [`notch_filter(freqs=np.arange(50, 251, 50), notch_widths=5)`]
-   
-#### `erf`
-contains erd plots:
-  + *_erf_joint_freq.png
-  + *_erf_joint_infreq.png
-  + *_erf_joint_overall.png
-  + *_erf_simple_overall.png
-  + *_erf_topo_overall.png
-
-🛠️ generated by: `003_simple_explore_task.py`
-
-##### Examples
-<img src = "results/preprocessing_routine_1/erf/sub-102_erf_joint_overall.png" width="2302" height="598" alt="sub-102_erf_joint_overall" />
-<img src = "results/preprocessing_routine_1/erf/sub-102_erf_simple_overall.png" width="2302" height="598" alt="sub-102_erf_simple_overall" />
-<img src = "results/preprocessing_routine_1/erf/sub-102_erf_joint_freq.png" width="2302" height="598" alt="sub-102_erf_joint_freq" />
-<img src = "results/preprocessing_routine_1/erf/sub-102_erf_joint_infreq.png" width="2302" height="598" alt="sub-102_erf_joint_infreq" />
-
-#### `rms`
+## folder `rms`
 contains rms plots
 
 🛠️ generated by: `003_simple_explore_task.py`
 
-##### Examples
+**Examples**
 <img src = "results/preprocessing_routine_1/rms/sub-102_rms.png" width="2302" height="598" alt="sub-102_erf_joint_overall" />
 
-
+##folder [*to be continued*]
 
 
 
