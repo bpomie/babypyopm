@@ -72,17 +72,27 @@ NOTE: Be sure to specify your working directory in each script.
 
 ### list of all scripts and their functions
 
-- 000_simple_explore_layout_renamed_channels.py [*function overview: to be completed*]
-- 001_simple_explore_psd_channels_noise.py [*function overview: to be completed*]
-- 002_group_filtering.py [*function overview: to be completed*]
-- 003_group_ica.py [*function overview: to be completed*]
-- 004_group_manual_inspect.py [*function overview: to be completed*]
-- 100_simple_explore_task.py [*function overview: to be completed*]
-- 101_simple_plot_erf_rms.py [*function overview: to be completed*]
-- 200_explore_grand_average.py [*function overview: to be completed*]
-- 300_simple_explore_tfr_ga.py [*function overview: to be completed*]
-- 401_group_temporal_decoding.py [*function overview: to be completed*]
-- 500_group_splithalf_reliability.py [*function overview: to be completed*]
+- `000_simple_explore_layout_renamed_channels.py` [*function overview: to be completed*]
+- `001_simple_explore_psd_channels_noise.py` [*function overview: to be completed*]
+- `002_group_filtering.py` [*function overview: to be completed*]
+- `003_group_ica.py` [*function overview: to be completed*]
+- `004_group_manual_inspect.py` [*function overview: to be completed*]
+- `100_simple_explore_task.py` [*function overview: to be completed*]
+- `101_simple_plot_erf_rms.py` [*function overview: to be completed*]
+- `200_explore_grand_average.py` [*function overview: to be completed*]
+- `200_explore_grand_average_figure_export.py` [*function overview: to be completed*]
+- `300_explore_tfr.py` [*function overview: to be completed*]
+- `300_simple_explore_tfr.py` [*function overview: to be completed*]
+- `300_simple_explore_tfr_ga.py` [*function overview: to be completed*]
+- `400_temporal_decoding_freq_vs_infreq.py` [*function overview: to be completed*]
+- `401_group_temporal_decoding.py` [*function overview: to be completed*]
+- `402_combined_decoding_figure.py` [*function overview: to be completed*]
+- `402_decoding_peak.py` [*function overview: to be completed*]
+- `402_group_decoding_peak.py` [*function overview: to be completed*]
+- `402a_group_decoding_compute.py` [*function overview: to be completed*]
+- `402b_group_decoding_figures.py` [*function overview: to be completed*]
+- `402c_group_decoding_patterns.py` [*function overview: to be completed*]
+- `500_group_splithalf_reliability.py` [*function overview: to be completed*]
 
 ## `files`
 
