@@ -86,7 +86,7 @@ NOTE: Be sure to specify your working directory in each script.
 
 1. Script **`000_simple_explore_layout_renamed_channels.py`**
 [*function overview: to be completed*]
-+ **Inputs**
++ ⬇️ **Inputs**
 (path: `~/data/sub-{nnn}/raw_recording/`)
   -	`sub-{nnn}_channels.tsv`
   -	`sub-{nnn}_raw.fif`
@@ -98,7 +98,7 @@ NOTE: Be sure to specify your working directory in each script.
 
 2. Script **`001_simple_explore_psd_channels_noise.py`**
 [*function overview: to be completed*]
-+ **Input**
++ ⬇️**Input**
 (path: `~/data/sub-{nnn}/ raw_rotated_sensorlocations/`)
   -	`sub-{nnn}_upright_wsensorlocations_raw.fif`
 + 🛠️ **Outputs**
