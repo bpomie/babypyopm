@@ -60,23 +60,15 @@ The data, raw and processed, are available on the project OSF repository: https:
 ├── 📝 utils_preprocessing_analysis.py
 └── {...}
 ```
-# Scripts and files
+# `scripts` and `files`
 
 NOTE: Be sure to specify your working directory in each script.
-
-## `scripts`
 
 :large_blue_circle: `simple_explore` scripts are walkthroughs on single participants and use base MNE functions. Please see manuscript outline for more details and tasks.
 
 :large_blue_circle: `group` scripts loop through all subjects in the data folder. They use utils_* pipelines. Please see manuscript outline for more details and tasks.
 
-### list of all scripts and their functions
-
-
-
-## `files`
-
-### list of all `files` generated before the analysis
+## list of all `files` generated before the analysis
 
 1. Files **generated automatically during recording**
 (path: `~/data/sub-{nnn}/raw_recording/`)
@@ -104,19 +96,19 @@ NOTE: Be sure to specify your working directory in each script.
 (path: `~/montages/`)
 [*to be completed*]
 
-2. Script **001_simple_explore_psd_channels_noise.py**
+2. Script **`001_simple_explore_psd_channels_noise.py`**
 [*function overview: to be completed*]
-+ Input 
-(path: ~/data/sub-{nnn}/ raw_rotated_sensorlocations/)
-  -	{name}_upright_wsensorlocations_raw.fif
-+ Outputs
-(path: ~/results/psd/)
--	{sub}_task.png
--	{sub}_emptyroom.png
-(path: ~/results/lifts/)
--	{sub}_before_filters.png
++ **Input**
+(path: `~/data/sub-{nnn}/ raw_rotated_sensorlocations/`)
+  -	`sub-{nnn}_upright_wsensorlocations_raw.fif`
++ **Outputs**
+(path: `~/results/psd/`)
+-	`{sub}_task.png`
+-	`{sub}_emptyroom.png`
+(path: `~/results/lifts/)`
+-	`{sub}_before_filters.png`
 
-3. Script **002_group_filtering.py**
+3. Script **`002_group_filtering.py`**
 [*function overview: to be completed*]
 + Input
 (path: ~/data/sub-{nnn}/ raw_rotated_sensorlocations)
@@ -125,7 +117,7 @@ NOTE: Be sure to specify your working directory in each script.
 (path: ~/data/sub-{nnn}/ processed_1_filter)
   -	{name}_filtered_01_40.fif
 
-4. **Script 003_group_ica.py**
+4. **`Script 003_group_ica.py`**
 [*function overview: to be completed*]
 + Input
 (path: ~/data/sub-{nnn}/ processed_1_filter)
@@ -141,7 +133,7 @@ NOTE: Be sure to specify your working directory in each script.
 (path: ~/results/logging/)
 -	{subj}_excluded_ICA_components.tsv
 
-5. Script **004_group_manual_inspect.py**
+5. Script **`004_group_manual_inspect.py`**
 -	Identify bad epochs through visual inspection. 
 -	Store bad epoch numbers for later use.
 + Input (path: ~/data/sub-{nnn}/ processed_2_filter_ica)
@@ -150,19 +142,149 @@ NOTE: Be sure to specify your working directory in each script.
   -	{name}_epochs_bad.csv
   -	{name}_epochs_summary.csv
 
-6. `004_group_manual_inspect.py` [*function overview: to be completed*]
-7. `100_simple_explore_task.py` [*function overview: to be completed*]
-8. `101_simple_plot_erf_rms.py` [*function overview: to be completed*]
-9. 200_explore_grand_average.py` [*function overview: to be completed*]
-10. 200_explore_grand_average_figure_export.py` [*function overview: to be completed*]
-11. 300_explore_tfr.py` [*function overview: to be completed*]
-12. `300_simple_explore_tfr.py` [*function overview: to be completed*]
-13. `300_simple_explore_tfr_ga.py` [*function overview: to be completed*]
-14. `400_temporal_decoding_freq_vs_infreq.py` [*function overview: to be completed*]
-15. `401_group_temporal_decoding.py` [*function overview: to be completed*]
-16. `402_combined_decoding_figure.py` [*function overview: to be completed*]
-17. `402_decoding_peak.py` [*function overview: to be completed*]
-18. `402_group_decoding_peak.py` [*function overview: to be completed*]
+6. **Script `100_simple_explore_task.py`**
+[*function overview: to be completed*]
++ Input
+(path: *to be completed*)
+- *to be completed*
++ Outputs
+(path: *to be completed*)
+- *to be completed*
+
+7. **Script `101_simple_plot_erf_rms.py`**
+[*function overview: to be completed*]
++ Input
+(path: *to be completed*)
+- *to be completed*
++ Outputs
+(path: *to be completed*)
+- *to be completed*
+
+8. **Script `200_explore_grand_average.py`**
+[*function overview: to be completed*]
++ Input
+(path: *to be completed*)
+- *to be completed*
++ Outputs
+(path: *to be completed*)
+- *to be completed*
+
+9. **Script `200_explore_grand_average_figure_export.py`**
+[*function overview: to be completed*]
++ Input
+(path: *to be completed*)
+- *to be completed*
++ Outputs
+(path: *to be completed*)
+- *to be completed*
+
+10. **Script `300_explore_tfr.py`**
+[*function overview: to be completed*]
++ Input
+(path: *to be completed*)
+- *to be completed*
++ Outputs
+(path: *to be completed*)
+- *to be completed*
+
+11. **Script `300_simple_explore_tfr.py`**
+[*function overview: to be completed*]
++ Input
+(path: *to be completed*)
+- *to be completed*
++ Outputs
+(path: *to be completed*)
+- *to be completed*
+
+12. **Script `300_simple_explore_tfr_ga.py`**
+[*function overview: to be completed*]
++ Input
+(path: *to be completed*)
+- *to be completed*
++ Outputs
+(path: *to be completed*)
+- *to be completed*
+
+13. **Script `400_temporal_decoding_freq_vs_infreq.py`**
+[*function overview: to be completed*]
++ Input
+(path: *to be completed*)
+- *to be completed*
++ Outputs
+(path: *to be completed*)
+- *to be completed*
+
+14. **Script `401_group_temporal_decoding.py`**
+[*function overview: to be completed*]
++ Input
+(path: *to be completed*)
+- *to be completed*
++ Outputs
+(path: *to be completed*)
+- *to be completed*
+
+15. **Script `402_combined_decoding_figure.py`**
+[*function overview: to be completed*]
++ Input
+(path: *to be completed*)
+- *to be completed*
++ Outputs
+(path: *to be completed*)
+- *to be completed*
+
+16. **Script `402_decoding_peak.py`**
+[*function overview: to be completed*]
++ Input
+(path: *to be completed*)
+- *to be completed*
++ Outputs
+(path: *to be completed*)
+- *to be completed*
+
+17. **Script `402_group_decoding_peak.py`**
+[*function overview: to be completed*]
++ Input
+(path: *to be completed*)
+- *to be completed*
++ Outputs
+(path: *to be completed*)
+- *to be completed*
+
+18. **Script `402a_group_decoding_compute.py`**
+[*function overview: to be completed*]
++ Input
+(path: *to be completed*)
+- *to be completed*
++ Outputs
+(path: *to be completed*)
+- *to be completed*
+
+19. **Script `402b_group_decoding_figures.py`**
+[*function overview: to be completed*]
++ Input
+(path: *to be completed*)
+- *to be completed*
++ Outputs
+(path: *to be completed*)
+- *to be completed*
+
+20. **Script `402c_group_decoding_patterns.py`**
+[*function overview: to be completed*]
++ Input
+(path: *to be completed*)
+- *to be completed*
++ Outputs
+(path: *to be completed*)
+- *to be completed*
+
+21. **Script `500_group_splithalf_reliability.py`**
+[*function overview: to be completed*]
++ Input
+(path: *to be completed*)
+- *to be completed*
++ Outputs
+(path: *to be completed*)
+- *to be completed*
 19. `402a_group_decoding_compute.py` [*function overview: to be completed*]
 20. `402b_group_decoding_figures.py` [*function overview: to be completed*]
 21. `402c_group_decoding_patterns.py` [*function overview: to be completed*]
