@@ -70,14 +70,23 @@ NOTE: Be sure to specify your working directory in each script.
 
 :large_blue_circle: `group` scripts loop through all subjects in the data folder. They use utils_* pipelines. Please see manuscript outline for more details and tasks.
 
-- `000_simple_explore_layout_renamed_channels.py`
-- `001_simple_explore_psd_channels_noise.py`
--  002_group_filtering
-- `100_simple_explore_task.py`
+### list of all scripts and their functions
+
+- 000_simple_explore_layout_renamed_channels.py [*function overview: to be completed*]
+- 001_simple_explore_psd_channels_noise.py [*function overview: to be completed*]
+- 002_group_filtering.py [*function overview: to be completed*]
+- 003_group_ica.py [*function overview: to be completed*]
+- 004_group_manual_inspect.py [*function overview: to be completed*]
+- 100_simple_explore_task.py [*function overview: to be completed*]
+- 101_simple_plot_erf_rms.py [*function overview: to be completed*]
+- 200_explore_grand_average.py [*function overview: to be completed*]
+- 300_simple_explore_tfr_ga.py [*function overview: to be completed*]
+- 401_group_temporal_decoding.py [*function overview: to be completed*]
+- 500_group_splithalf_reliability.py [*function overview: to be completed*]
 
 ## `files`
 
-### `files` generated before the analysis
+### list of all `files` generated before the analysis
 
 1. Files **generated automatically during recording**
 (path: `~/data/sub-{nnn}/raw_recording/`)
@@ -91,7 +100,7 @@ NOTE: Be sure to specify your working directory in each script.
   -	`sub-{nnn}_{sub-}_event_dict.json`
   -	`sub-{nnn}_referencechannels_location.json`
 
-### `files` generated during the analysis
+### list of all `files` generated during the analysis
 
 3. Script **000_simple_explore_layout_renamed_channels.py**
 + Input (path: ~/data/sub-{nnn}/raw_recording/)
