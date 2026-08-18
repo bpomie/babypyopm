@@ -45,7 +45,7 @@ import matplotlib.pyplot as plt
 # USER SETTINGS
 # =============================================================================
 
-subj = 'sub-102'
+subj = 'sub-107'
 task = 'oddballTones'
 
 # Path to your project folder (contains 'data/' and 'montages/')
@@ -240,6 +240,31 @@ for fif_file, output_fif, tag in recordings:
 
     for ch in missing_from_fif:
         print("  ", ch)
+        
+    # =============================================================================
+    # DROP SENSORS AT (0,0,0)
+    # =============================================================================
+
+    zero_loc_chs = [
+        ch["ch_name"]
+        for ch in raw.info["chs"]
+        if ch["kind"] == mne.io.constants.FIFF.FIFFV_MEG_CH
+        and np.allclose(ch["loc"][:3], 0)
+    ]
+
+    print("\n" + "=" * 60)
+    print("DROPPING SENSORS AT (0,0,0)")
+    print("=" * 60)
+
+    print(f"Channels to drop ({len(zero_loc_chs)}):")
+
+    for ch_name in zero_loc_chs:
+        print("  ", ch_name)
+
+    if zero_loc_chs:
+        raw.drop_channels(zero_loc_chs)
+
+    print(f"\nChannels remaining: {len(raw.ch_names)}")
 
     # =============================================================================
     # MM -> M
